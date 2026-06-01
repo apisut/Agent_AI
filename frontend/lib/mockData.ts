@@ -1,4 +1,4 @@
-// Mock Data for Janie Alpha HQ
+// Mock Data for Alpha Iris
 
 export const agents = [
   {

@@ -3,7 +3,7 @@ import './globals.css'
 import { TopBar } from '@/components/layout/TopBar'
 
 export const metadata: Metadata = {
-  title: 'Janie Alpha HQ | AI Stock Command Center',
+  title: 'Alpha Iris | AI Stock Command Center',
   description: 'AI-powered stock trading command center',
 }
 

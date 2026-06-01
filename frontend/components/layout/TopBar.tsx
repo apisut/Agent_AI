@@ -29,7 +29,7 @@ export function TopBar() {
           <Zap className="w-4 h-4 text-white" />
         </div>
         <div className="leading-none">
-          <div className="text-xs font-mono font-bold text-[#6366f1] tracking-wider">JANIE ALPHA HQ</div>
+          <div className="text-xs font-mono font-bold text-[#6366f1] tracking-wider">ALPHA IRIS</div>
           <div className="text-[9px] font-mono text-[#64748b] tracking-widest uppercase">AI Stock Command Center</div>
         </div>
       </div>

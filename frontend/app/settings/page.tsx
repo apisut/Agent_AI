@@ -29,7 +29,7 @@ export default function SettingsPage() {
             <GlassPanel title="Command Center" glowColor="indigo">
               <div className="p-4 flex flex-col gap-4">
                 {[
-                  { label: 'Headquarters Name', value: 'Janie Alpha HQ', type: 'text' },
+                  { label: 'Headquarters Name', value: 'Alpha Iris', type: 'text' },
                   { label: 'Commander Name', value: 'Janie', type: 'text' },
                   { label: 'Timezone', value: 'Asia/Bangkok (GMT+7)', type: 'select' },
                   { label: 'Language', value: 'English / Thai', type: 'select' },
