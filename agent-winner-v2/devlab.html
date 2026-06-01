@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Lab — เอเจนวินเนอร์</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">Dev Lab</div>
+      <a href="devlab.html" class="active">⚗️ Sprint Board</a>
+      <a href="#">🌐 API Health</a>
+      <a href="#">📟 System Logs</a>
+      <a href="#">🗺️ Feature Roadmap</a>
+      <a href="#">🚀 Deployments</a>
+      <hr class="divider-h">
+      <div class="sidebar-section">Sprint Info</div>
+      <div style="padding:8px 14px;font-size:12px;color:var(--text-secondary);display:flex;flex-direction:column;gap:4px">
+        <div class="flex-between"><span class="text-muted">Sprint</span><span class="fw-600">#12</span></div>
+        <div class="flex-between"><span class="text-muted">เริ่ม</span><span>Jun 1</span></div>
+        <div class="flex-between"><span class="text-muted">สิ้นสุด</span><span>Jun 14</span></div>
+        <div class="flex-between"><span class="text-muted">Velocity</span><span class="text-green">42 pts</span></div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <!-- Sprint Board -->
+      <div class="section-title">🗂️ Sprint Board — Sprint #12</div>
+      <div class="kanban-board mb-16">
+        <!-- Backlog -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>📋 Backlog</span>
+            <span class="badge badge-gray">5</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">เพิ่ม Crypto watchlist</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Feature</span><span class="tag">Byte</span><span class="tag">3pt</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Volt auto stop-loss</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Feature</span><span class="tag">Volt</span><span class="tag">5pt</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Export รายงาน PDF</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Feature</span><span class="tag">Echo</span><span class="tag">2pt</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Dark/Light mode</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">UI</span><span class="tag">2pt</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Multi-portfolio</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Feature</span><span class="tag">8pt</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- In Progress -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>🔧 In Progress</span>
+            <span class="badge badge-blue">3</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card highlight">
+              <div class="fw-600 text-sm mb-4">Lex Sentiment v2</div>
+              <div class="text-xs text-muted mb-4">Progress: 65%</div>
+              <div class="progress-bar mb-6"><div class="progress-fill" style="width:65%"></div></div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">AI</span><span class="tag">Nova</span><span class="tag">8pt</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Nova backtest speed</div>
+              <div class="text-xs text-muted mb-4">Progress: 40%</div>
+              <div class="progress-bar mb-6"><div class="progress-fill" style="width:40%"></div></div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Performance</span><span class="tag">5pt</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Ticker realtime feed</div>
+              <div class="text-xs text-muted mb-4">Progress: 80%</div>
+              <div class="progress-bar mb-6"><div class="progress-fill green" style="width:80%"></div></div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Data</span><span class="tag">Byte</span><span class="tag">3pt</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>🔍 Review</span>
+            <span class="badge badge-yellow">2</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Kanban scanner UI</div>
+              <div class="flex gap-4 flex-wrap mb-4"><span class="tag">UI</span><span class="tag">5pt</span></div>
+              <div class="text-xs text-muted">รอ Janie review</div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4">Hermes streaming API</div>
+              <div class="flex gap-4 flex-wrap mb-4"><span class="tag">API</span><span class="tag">8pt</span></div>
+              <div class="text-xs text-muted">รอ test</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Done -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>✅ Done</span>
+            <span class="badge badge-green">6</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4 text-muted">Nav &amp; Ticker bar</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">UI</span><span class="badge badge-green" style="font-size:9px">Done</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4 text-muted">Qwen API integration</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">API</span><span class="badge badge-green" style="font-size:9px">Done</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4 text-muted">Portfolio dashboard</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">UI</span><span class="badge badge-green" style="font-size:9px">Done</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4 text-muted">Price fetcher</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Data</span><span class="badge badge-green" style="font-size:9px">Done</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4 text-muted">Agent profiles</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">UI</span><span class="badge badge-green" style="font-size:9px">Done</span></div>
+            </div>
+            <div class="stock-card">
+              <div class="fw-600 text-sm mb-4 text-muted">Settings API Key</div>
+              <div class="flex gap-4 flex-wrap"><span class="tag">Feature</span><span class="badge badge-green" style="font-size:9px">Done</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Health Table -->
+      <div class="card mb-12">
+        <div class="card-title">🌐 API Health Monitor</div>
+        <table class="table">
+          <thead>
+            <tr><th>Endpoint</th><th>สถานะ</th><th>Latency</th><th>Uptime</th><th>Last Check</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-mono text-xs">Qwen API (dashscope-intl)</td>
+              <td><span class="badge badge-green">✓ Online</span></td>
+              <td class="text-green font-mono">142ms</td>
+              <td class="text-green">99.8%</td>
+              <td class="text-muted text-xs">09:42:18</td>
+            </tr>
+            <tr>
+              <td class="font-mono text-xs">Yahoo Finance (corsproxy)</td>
+              <td><span class="badge badge-green">✓ Online</span></td>
+              <td class="text-green font-mono">380ms</td>
+              <td class="text-green">98.2%</td>
+              <td class="text-muted text-xs">09:42:05</td>
+            </tr>
+            <tr>
+              <td class="font-mono text-xs">News API</td>
+              <td><span class="badge badge-green">✓ Online</span></td>
+              <td class="text-yellow font-mono">820ms</td>
+              <td class="text-green">97.5%</td>
+              <td class="text-muted text-xs">09:41:50</td>
+            </tr>
+            <tr>
+              <td class="font-mono text-xs">LocalStorage (Settings)</td>
+              <td><span class="badge badge-green">✓ Active</span></td>
+              <td class="text-green font-mono">&lt;1ms</td>
+              <td class="text-green">100%</td>
+              <td class="text-muted text-xs">09:42:18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- System Logs -->
+      <div class="card mb-12">
+        <div class="card-title">📟 System Logs</div>
+        <div style="background:var(--bg-base);border:1px solid var(--border);border-radius:var(--radius);padding:10px;font-family:'Courier New',monospace;font-size:11px;height:180px;overflow-y:auto">
+          <div style="color:var(--text-muted)">2025-06-01 09:42:18 <span style="color:var(--green)">[INFO]</span> Aria signal HIMS sent to queue</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:42:05 <span style="color:var(--green)">[INFO]</span> Price update cycle complete — 13 symbols</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:41:50 <span style="color:var(--green)">[INFO]</span> Scout news fetch: 12 articles Biotech</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:40:22 <span style="color:var(--yellow)">[WARN]</span> Nova model response time 2.1s (threshold 2s)</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:38:15 <span style="color:var(--green)">[INFO]</span> Byte data pipeline sync OK</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:35:00 <span style="color:var(--green)">[INFO]</span> All agents initialized</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:30:00 <span style="color:var(--green)">[INFO]</span> System startup complete</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:29:55 <span style="color:var(--green)">[INFO]</span> Qwen API key validated</div>
+          <div style="color:var(--text-muted)">2025-06-01 09:29:50 <span style="color:var(--green)">[INFO]</span> Settings loaded from localStorage</div>
+        </div>
+      </div>
+
+      <!-- Feature Roadmap -->
+      <div class="card">
+        <div class="card-title">🗺️ Feature Roadmap</div>
+        <div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--green)"></div>
+            <div>
+              <div class="flex-between"><span class="fw-600 text-sm">v1.0 — Core Platform</span><span class="badge badge-green">เสร็จแล้ว</span></div>
+              <div class="text-xs text-muted mt-4">Nav, Portfolio, Scanner, Hermes Chat, Price Feed</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--accent)"></div>
+            <div>
+              <div class="flex-between"><span class="fw-600 text-sm">v1.1 — AI Enhancement</span><span class="badge badge-blue">กำลังพัฒนา</span></div>
+              <div class="text-xs text-muted mt-4">Lex Sentiment v2, Nova Speed Boost, Realtime Feed</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="flex-between"><span class="fw-600 text-sm">v1.2 — Automation</span><span class="badge badge-gray">Q3 2025</span></div>
+              <div class="text-xs text-muted mt-4">Auto Stop-Loss, Crypto Support, PDF Reports</div>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="flex-between"><span class="fw-600 text-sm">v2.0 — Full Automation</span><span class="badge badge-gray">Q4 2025</span></div>
+              <div class="text-xs text-muted mt-4">Multi-portfolio, Paper Trading, Live Execution</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="microcopy">ผลลัพธ์จาก AI ใช้เพื่อการวิเคราะห์เท่านั้น</p>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="rightpanel">
+      <div class="section-title">System Stats</div>
+      <div class="card mb-12">
+        <div class="status-row"><span class="text-xs text-muted">Version</span><span class="fw-600 font-mono">v1.1.0-dev</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Build</span><span class="fw-600 font-mono">#2847</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Environment</span><span class="badge badge-yellow">Staging</span></div>
+        <div class="status-row"><span class="text-xs text-muted">API Calls วันนี้</span><span class="fw-600">1,284</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Error Rate</span><span class="fw-600 text-green">0.02%</span></div>
+      </div>
+
+      <div class="section-title">Recent Deployments</div>
+      <div class="card mb-12">
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--green)"></div>
+          <div>
+            <div class="text-sm fw-600">v1.1.0-beta.3</div>
+            <div class="text-xs text-muted">วันนี้ 08:30 · Staging</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="text-sm">v1.1.0-beta.2</div>
+            <div class="text-xs text-muted">เมื่อวาน · Staging</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--green)"></div>
+          <div>
+            <div class="text-sm fw-600">v1.0.5</div>
+            <div class="text-xs text-muted">May 28 · Production ✓</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="text-sm">v1.0.4</div>
+            <div class="text-xs text-muted">May 21 · Production</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Sprint Progress</div>
+      <div class="card">
+        <div class="flex-between mb-6"><span class="text-xs text-muted">Sprint #12</span><span class="text-xs fw-600">Day 1/14</span></div>
+        <div class="progress-bar mb-8"><div class="progress-fill" style="width:7%"></div></div>
+        <div class="status-row"><span class="text-xs text-muted">Story Points</span><span class="fw-600">11/42 pts</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Tasks</span><span class="fw-600">6/16</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Bugs</span><span class="fw-600 text-yellow">2 open</span></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/prices.js"></script>
+</body>
+</html>

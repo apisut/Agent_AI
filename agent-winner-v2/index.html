@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ศูนย์บัญชาการ — เอเจนวินเนอร์</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">หน้าหลัก</div>
+      <a href="index.html" class="active">🏠 ศูนย์บัญชาการ</a>
+      <a href="#">⭐ หุ้นติดตาม <span class="sidebar-badge">122</span></a>
+      <a href="#">📋 แผนงานวันนี้</a>
+      <a href="#">📰 ข่าว &amp; Catalyst</a>
+      <a href="#">⚠️ ความเสี่ยงพอร์ต</a>
+      <a href="#">📊 รายงานประจำวัน</a>
+      <a href="#">🔔 แจ้งเตือน <span class="sidebar-badge">3</span></a>
+      <hr class="divider-h" style="margin:8px 0">
+      <div class="sidebar-section">ระบบ</div>
+      <div style="padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)"><span class="status-dot online"></span> API Gateway</div>
+      <div style="padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)"><span class="status-dot online"></span> Data Pipeline</div>
+      <div style="padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)"><span class="status-dot online"></span> News Engine</div>
+      <div style="padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text-secondary)"><span class="status-dot online"></span> AI Models</div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <!-- Row 1: 5 KPI Cards -->
+      <div class="grid-5">
+        <div class="kpi-card">
+          <div class="kpi-label">ภาวะตลาด</div>
+          <div class="kpi-value" style="font-size:16px">เป็นบวก</div>
+          <div class="mt-4"><span class="badge badge-green">🟢 Risk-On</span></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">NASDAQ</div>
+          <div class="kpi-value">17,721</div>
+          <div class="kpi-change text-green">▲ +1.35%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">S&amp;P500</div>
+          <div class="kpi-value">5,325</div>
+          <div class="kpi-change text-green">▲ +0.88%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">VIX</div>
+          <div class="kpi-value">13.62</div>
+          <div class="kpi-change text-green">▼ -5.23%</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">พอร์ตรวม</div>
+          <div class="kpi-value" style="font-size:16px">$2,338,410</div>
+          <div class="kpi-change text-green">▲ +1.42%</div>
+        </div>
+      </div>
+
+      <!-- Row 2 -->
+      <div class="grid-60-40 mt-12">
+        <!-- HQ Overview -->
+        <div class="card">
+          <div class="card-title">HQ ภาพรวม</div>
+          <div class="status-row">
+            <span class="text-secondary">เอเจนต์ออนไลน์</span>
+            <span class="badge badge-green">8/9</span>
+          </div>
+          <div class="status-row">
+            <span class="text-secondary">งานกำลังดำเนินการ</span>
+            <span class="badge badge-blue">14</span>
+          </div>
+          <div class="status-row">
+            <span class="text-secondary">สัญญาณใหม่วันนี้</span>
+            <span class="badge badge-accent">7</span>
+          </div>
+          <div class="status-row">
+            <span class="text-secondary">รอ CEO อนุมัติ</span>
+            <span class="badge badge-yellow">3</span>
+          </div>
+        </div>
+
+        <!-- Hermes Daily Briefing -->
+        <div class="card">
+          <div class="card-title">🧠 Hermes Daily Briefing</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--text-secondary)">
+            <li>📊 ตลาดสหรัฐอยู่ในโหมด Risk-On จาก Fed signal เชิงบวก</li>
+            <li>💊 Biotech sector มี momentum แข็งแกร่ง — HIMS/RXRX โดดเด่น</li>
+            <li>🤖 AI/ML stocks consolidate ก่อน breakout — PLTR/BBAI น่าจับตา</li>
+            <li>⚡ VIX ต่ำสุดในรอบ 3 เดือน สัญญาณ volatility ลดลง</li>
+          </ul>
+          <div class="flex gap-8 mt-12">
+            <button class="btn-primary">รับ Briefing เต็ม</button>
+            <button class="btn-ghost">ดูแผนงาน</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 3 -->
+      <div class="grid-60-40 mt-12">
+        <!-- Top Opportunities -->
+        <div class="card">
+          <div class="card-title">🔥 Top Opportunities วันนี้</div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>หุ้น</th><th>ราคา</th><th>เปลี่ยน</th><th>Alpha</th><th>สถานะ</th><th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>HIMS</strong></td>
+                <td data-ticker="HIMS" data-field="price">22.84</td>
+                <td><span class="text-green" data-ticker="HIMS" data-field="change">+4.20%</span></td>
+                <td><span class="badge badge-green">82</span></td>
+                <td><span class="badge badge-accent">พร้อมแผน</span></td>
+                <td><button class="btn-ghost btn-sm">วิเคราะห์</button></td>
+              </tr>
+              <tr>
+                <td><strong>ZETA</strong></td>
+                <td data-ticker="ZETA" data-field="price">18.42</td>
+                <td><span class="text-green" data-ticker="ZETA" data-field="change">+2.85%</span></td>
+                <td><span class="badge badge-green">79</span></td>
+                <td><span class="badge badge-accent">พร้อมแผน</span></td>
+                <td><button class="btn-ghost btn-sm">วิเคราะห์</button></td>
+              </tr>
+              <tr>
+                <td><strong>RXRX</strong></td>
+                <td data-ticker="RXRX" data-field="price">8.67</td>
+                <td><span class="text-green" data-ticker="RXRX" data-field="change">+3.12%</span></td>
+                <td><span class="badge badge-yellow">71</span></td>
+                <td><span class="badge badge-yellow">ตรวจสอบ</span></td>
+                <td><button class="btn-ghost btn-sm">วิเคราะห์</button></td>
+              </tr>
+              <tr>
+                <td><strong>SOUN</strong></td>
+                <td>5.34</td>
+                <td><span class="text-green">+6.80%</span></td>
+                <td><span class="badge badge-yellow">68</span></td>
+                <td><span class="badge badge-gray">พบไอเดีย</span></td>
+                <td><button class="btn-ghost btn-sm">วิเคราะห์</button></td>
+              </tr>
+              <tr>
+                <td><strong>BBAI</strong></td>
+                <td>3.21</td>
+                <td><span class="text-green">+5.24%</span></td>
+                <td><span class="badge badge-yellow">65</span></td>
+                <td><span class="badge badge-gray">พบไอเดีย</span></td>
+                <td><button class="btn-ghost btn-sm">วิเคราะห์</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Active Missions -->
+        <div class="card">
+          <div class="card-title">🎯 Active Missions</div>
+          <div class="mission-row">
+            <div class="flex-between mb-4">
+              <span class="text-sm">วิเคราะห์ HIMS ก่อน earnings</span>
+              <span class="badge badge-green">เสร็จแล้ว</span>
+            </div>
+            <div class="flex gap-8 mb-4">
+              <span class="tag">Aria</span><span class="tag">Scout</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill green" style="width:100%"></div></div>
+          </div>
+          <div class="mission-row">
+            <div class="flex-between mb-4">
+              <span class="text-sm">สแกน Biotech sector</span>
+              <span class="badge badge-blue">กำลังทำ</span>
+            </div>
+            <div class="flex gap-8 mb-4">
+              <span class="tag">Nova</span><span class="tag">Byte</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
+          </div>
+          <div class="mission-row">
+            <div class="flex-between mb-4">
+              <span class="text-sm">ตรวจสอบ Risk Portfolio</span>
+              <span class="badge badge-blue">กำลังทำ</span>
+            </div>
+            <div class="flex gap-8 mb-4">
+              <span class="tag">Doc</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill yellow" style="width:40%"></div></div>
+          </div>
+          <div class="mission-row">
+            <div class="flex-between mb-4">
+              <span class="text-sm">ร่างรายงานประจำสัปดาห์</span>
+              <span class="badge badge-gray">รอ</span>
+            </div>
+            <div class="flex gap-8 mb-4">
+              <span class="tag">Echo</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" style="width:10%"></div></div>
+          </div>
+          <div class="mission-row">
+            <div class="flex-between mb-4">
+              <span class="text-sm">ตั้ง Stop Loss NVDA</span>
+              <span class="badge badge-yellow">รอ CEO</span>
+            </div>
+            <div class="flex gap-8 mb-4">
+              <span class="tag">Volt</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill yellow" style="width:80%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 4 grid-4 -->
+      <div class="grid-4 mt-12">
+        <!-- AI Team Status -->
+        <div class="card">
+          <div class="card-title">🤖 AI Team Status</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="flex gap-8">
+              <div class="avatar" style="background:var(--accent-subtle);color:var(--accent)">H</div>
+              <div class="flex-col flex-1">
+                <div class="flex-between"><span class="fw-600 text-sm">Hermes</span><span class="status-dot online"></span></div>
+                <span class="text-xs text-muted">สแกนตลาดรวม</span>
+              </div>
+            </div>
+            <div class="flex gap-8">
+              <div class="avatar" style="background:rgba(59,130,246,0.15);color:var(--blue)">A</div>
+              <div class="flex-col flex-1">
+                <div class="flex-between"><span class="fw-600 text-sm">Aria</span><span class="status-dot online"></span></div>
+                <span class="text-xs text-muted">วิเคราะห์ HIMS chart</span>
+              </div>
+            </div>
+            <div class="flex gap-8">
+              <div class="avatar" style="background:rgba(34,197,94,0.15);color:var(--green)">S</div>
+              <div class="flex-col flex-1">
+                <div class="flex-between"><span class="fw-600 text-sm">Scout</span><span class="status-dot online"></span></div>
+                <span class="text-xs text-muted">ล่าข่าว Biotech</span>
+              </div>
+            </div>
+            <div class="flex gap-8">
+              <div class="avatar" style="background:rgba(245,158,11,0.15);color:var(--yellow)">N</div>
+              <div class="flex-col flex-1">
+                <div class="flex-between"><span class="fw-600 text-sm">Nova</span><span class="status-dot busy"></span></div>
+                <span class="text-xs text-muted">คำนวณ backtest model</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- System Log -->
+        <div class="card">
+          <div class="card-title">📟 System Log</div>
+          <div>
+            <div class="log-line"><span class="log-time">09:42:18</span><span class="log-ok">[OK]</span> Aria ส่งสัญญาณ HIMS</div>
+            <div class="log-line"><span class="log-time">09:40:55</span><span class="log-ok">[OK]</span> Scout พบข่าว RXRX FDA</div>
+            <div class="log-line"><span class="log-time">09:38:12</span><span class="log-warn">[WARN]</span> Nova latency สูง 2.1s</div>
+            <div class="log-line"><span class="log-time">09:35:07</span><span class="log-ok">[OK]</span> Data pipeline sync</div>
+            <div class="log-line"><span class="log-time">09:30:00</span><span class="log-ok">[OK]</span> ระบบเปิดทำการ</div>
+          </div>
+        </div>
+
+        <!-- Team Chat -->
+        <div class="card">
+          <div class="card-title">💬 Team Chat</div>
+          <div class="chat-messages" style="height:140px">
+            <div>
+              <div class="chat-msg-meta">Hermes · 09:41</div>
+              <div class="chat-msg chat-msg-ai">HIMS breakout จาก $21 resistance สัญญาณดี</div>
+            </div>
+            <div>
+              <div class="chat-msg-meta">Aria · 09:42</div>
+              <div class="chat-msg chat-msg-ai">ยืนยัน volume 3x above average</div>
+            </div>
+            <div>
+              <div class="chat-msg-meta">Scout · 09:43</div>
+              <div class="chat-msg chat-msg-user">พบข่าว positive FDA ด้วย!</div>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <input class="input" style="font-size:12px;padding:5px 10px" placeholder="ส่งข้อความ..." />
+            <button class="btn-primary btn-sm">ส่ง</button>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card">
+          <div class="card-title">⚡ Quick Actions</div>
+          <div class="quick-actions">
+            <button class="btn-ghost">🔍 สแกนหุ้นใหม่</button>
+            <button class="btn-ghost">📊 รายงานตลาด</button>
+            <button class="btn-ghost">💼 ตรวจสอบพอร์ต</button>
+            <button class="btn-ghost">🏢 ประชุมทีม</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="microcopy">ผลลัพธ์จาก AI ใช้เพื่อการวิเคราะห์เท่านั้น</p>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="rightpanel">
+      <div class="section-title">เอเจนต์แนะนำ</div>
+      <div class="card mb-12">
+        <div class="profile-section">
+          <div class="avatar-lg" style="background:rgba(59,130,246,0.15);color:var(--blue);margin:0 auto 8px">A</div>
+          <div class="fw-600" style="font-size:14px">Aria</div>
+          <div class="mt-4"><span class="badge badge-blue">Market Analyst</span></div>
+        </div>
+        <div class="status-row"><span class="text-xs text-muted">งานสำเร็จวันนี้</span><span class="fw-600 text-sm">8</span></div>
+        <div class="status-row"><span class="text-xs text-muted">ความแม่นยำ</span><span class="fw-600 text-sm text-green">92%</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Win Rate</span><span class="fw-600 text-sm text-green">78%</span></div>
+        <div class="status-row"><span class="text-xs text-muted">สถานะ</span><span class="badge badge-green">Online</span></div>
+      </div>
+
+      <div class="section-title">แผนเทรดล่าสุด</div>
+      <div class="card mb-12">
+        <div class="flex-between mb-8"><span class="fw-600 text-sm">HIMS</span><span class="badge badge-accent">Active</span></div>
+        <table class="table">
+          <tr><td class="text-muted text-xs">Entry</td><td class="fw-600">$20.20 – $21.60</td></tr>
+          <tr><td class="text-muted text-xs">Stop</td><td class="fw-600 text-red">$17.40</td></tr>
+          <tr><td class="text-muted text-xs">TP1</td><td class="fw-600 text-green">$26.20</td></tr>
+          <tr><td class="text-muted text-xs">TP2</td><td class="fw-600 text-green">$31.20</td></tr>
+          <tr><td class="text-muted text-xs">R:R</td><td class="fw-600">1:2.4</td></tr>
+        </table>
+      </div>
+
+      <div class="section-title">รอการอนุมัติ</div>
+      <div class="card mb-8">
+        <div class="text-sm fw-600 mb-4">เพิ่มสถานะ HIMS 500 หุ้น</div>
+        <div class="flex gap-6 mb-8"><span class="badge badge-yellow">ความเสี่ยงปานกลาง</span></div>
+        <div class="flex gap-6">
+          <button class="btn-primary btn-sm">✓ อนุมัติ</button>
+          <button class="btn-ghost btn-sm">✗ ปฏิเสธ</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="text-sm fw-600 mb-4">ตั้ง Stop Loss NVDA $108</div>
+        <div class="flex gap-6 mb-8"><span class="badge badge-green">ความเสี่ยงต่ำ</span></div>
+        <div class="flex gap-6">
+          <button class="btn-primary btn-sm">✓ อนุมัติ</button>
+          <button class="btn-ghost btn-sm">✗ ปฏิเสธ</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/prices.js"></script>
+</body>
+</html>
