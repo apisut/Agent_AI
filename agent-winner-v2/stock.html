@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ห้องหุ้น — เอเจนวินเนอร์</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">ห้องหุ้น</div>
+      <a href="stock.html" class="active">📊 สรุปหุ้น</a>
+      <a href="#">📈 กราฟราคา</a>
+      <a href="#">📰 ข่าวล่าสุด</a>
+      <a href="#">💡 ปัจจัยพื้นฐาน</a>
+      <a href="#">🎯 Trade Plan</a>
+      <hr class="divider-h">
+      <div class="sidebar-section">หุ้นล่าสุด</div>
+      <a href="#">📈 HIMS</a>
+      <a href="#">📈 ZETA</a>
+      <a href="#">📈 RXRX</a>
+      <a href="#">📈 PLTR</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <!-- Stock Header -->
+      <div class="card mb-12">
+        <div class="flex gap-16 items-start flex-wrap">
+          <div>
+            <div style="font-size:28px;font-weight:700;line-height:1">HIMS</div>
+            <div class="text-xs text-muted mt-4">Hims &amp; Hers Health, Inc.</div>
+          </div>
+          <div>
+            <div style="font-size:24px;font-weight:700;color:var(--text-primary)" data-ticker="HIMS" data-field="price">22.84</div>
+            <div class="mt-4"><span class="badge badge-green">▲ +4.20% +$0.92</span></div>
+          </div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;margin-left:auto">
+            <div><div class="text-xs text-muted">Market Cap</div><div class="text-sm fw-600">$5.2B</div></div>
+            <div><div class="text-xs text-muted">52W Range</div><div class="text-sm fw-600">12.40 — 31.80</div></div>
+            <div><div class="text-xs text-muted">Volume</div><div class="text-sm fw-600">42.3M</div></div>
+            <div><div class="text-xs text-muted">Avg Vol</div><div class="text-sm fw-600">14.8M</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Score Row grid-6 -->
+      <div class="grid-6 mb-12">
+        <div class="score-card">
+          <div class="score-label">Alpha Score</div>
+          <div class="score-value text-green">82</div>
+          <div class="progress-bar w-100"><div class="progress-fill green" style="width:82%"></div></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Technical</div>
+          <div class="score-value text-green">78</div>
+          <div class="progress-bar w-100"><div class="progress-fill green" style="width:78%"></div></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Fundamental</div>
+          <div class="score-value text-yellow">65</div>
+          <div class="progress-bar w-100"><div class="progress-fill yellow" style="width:65%"></div></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">News</div>
+          <div class="score-value text-green">88</div>
+          <div class="progress-bar w-100"><div class="progress-fill green" style="width:88%"></div></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Social</div>
+          <div class="score-value text-yellow">74</div>
+          <div class="progress-bar w-100"><div class="progress-fill yellow" style="width:74%"></div></div>
+        </div>
+        <div class="score-card">
+          <div class="score-label">Risk</div>
+          <div class="score-value text-yellow">71</div>
+          <div class="progress-bar w-100"><div class="progress-fill yellow" style="width:71%"></div></div>
+        </div>
+      </div>
+
+      <!-- Price Chart Placeholder -->
+      <div class="card mb-12">
+        <div class="flex-between mb-12">
+          <div class="card-title" style="margin-bottom:0">📈 กราฟราคา HIMS</div>
+          <div class="flex gap-4">
+            <button class="tab-btn active" style="padding:4px 10px;font-size:11px">1D</button>
+            <button class="tab-btn" style="padding:4px 10px;font-size:11px">5D</button>
+            <button class="tab-btn" style="padding:4px 10px;font-size:11px">1M</button>
+            <button class="tab-btn" style="padding:4px 10px;font-size:11px">3M</button>
+            <button class="tab-btn" style="padding:4px 10px;font-size:11px">6M</button>
+            <button class="tab-btn" style="padding:4px 10px;font-size:11px">1Y</button>
+          </div>
+        </div>
+        <div style="height:300px;display:flex;align-items:center;justify-content:center;background:var(--bg-elevated);border-radius:var(--radius);border:1px solid var(--border)">
+          <div style="text-align:center;color:var(--text-muted)">
+            <div style="font-size:32px;margin-bottom:8px">📈</div>
+            <div>กราฟราคา HIMS</div>
+            <div class="text-xs mt-4">TradingView Widget จะแสดงที่นี่</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Info Cards -->
+      <div class="grid-3 mb-12">
+        <div class="card">
+          <div class="card-title">📅 Earnings</div>
+          <div class="status-row"><span class="text-xs text-muted">วันถัดไป</span><span class="fw-600 text-sm">Aug 14, 2025</span></div>
+          <div class="status-row"><span class="text-xs text-muted">EPS คาดการณ์</span><span class="fw-600 text-sm">$0.08</span></div>
+          <div class="status-row"><span class="text-xs text-muted">EPS ที่แล้ว</span><span class="fw-600 text-sm text-green">+$0.05 เกิน</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Rev คาดการณ์</span><span class="fw-600 text-sm">$385M</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">💼 Fundamentals</div>
+          <div class="status-row"><span class="text-xs text-muted">P/E Ratio</span><span class="fw-600 text-sm">42x</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Revenue Growth</span><span class="fw-600 text-sm text-green">+60% YoY</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Gross Margin</span><span class="fw-600 text-sm text-green">79%</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Net Income</span><span class="fw-600 text-sm text-green">Profitable</span></div>
+        </div>
+        <div class="card">
+          <div class="card-title">🔥 Social Heat</div>
+          <div class="status-row"><span class="text-xs text-muted">Mentions (24h)</span><span class="fw-600 text-sm">2,400</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Sentiment</span><span class="fw-600 text-sm text-green">76% Bullish</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Trending Rank</span><span class="fw-600 text-sm text-accent">#3</span></div>
+          <div class="status-row"><span class="text-xs text-muted">Reddit Posts</span><span class="fw-600 text-sm">148</span></div>
+        </div>
+      </div>
+
+      <!-- Agent Analysis Tabs -->
+      <div class="card mb-12">
+        <div class="card-title">🤖 การวิเคราะห์จากเอเจนต์</div>
+        <div class="tabs" id="agent-tabs">
+          <button class="tab-btn active" data-tab="hermes">Hermes</button>
+          <button class="tab-btn" data-tab="aria">Aria</button>
+          <button class="tab-btn" data-tab="scout">Scout</button>
+          <button class="tab-btn" data-tab="nova">Nova</button>
+          <button class="tab-btn" data-tab="lex">Lex</button>
+          <button class="tab-btn" data-tab="byte">Byte</button>
+          <button class="tab-btn" data-tab="doc">Doc</button>
+          <button class="tab-btn" data-tab="volt">Volt</button>
+          <button class="tab-btn" data-tab="echo">Echo</button>
+        </div>
+        <div id="agent-content" style="font-size:13px;line-height:1.7;color:var(--text-secondary);min-height:100px">
+          <div id="tab-hermes" class="tab-content active">
+            🎯 <strong>Hermes สรุปภาพรวม HIMS:</strong> สัญญาณ Bullish ชัดเจน ราคา breakout จาก $21 resistance พร้อม volume สูงผิดปกติ 3x รับแผน Long ที่ $20.20–$21.60 TP1 $26.20 TP2 $31.20 Stop $17.40 R:R 1:2.4 ความเชื่อมั่น 84%
+          </div>
+          <div id="tab-aria" class="tab-content">
+            📈 <strong>Aria วิเคราะห์เทคนิค:</strong> HIMS กำลัง breakout จาก ascending wedge pattern บน timeframe 1D RSI 58 — ยังมีที่ขึ้น MACD golden cross ยืนยัน momentum ขาขึ้น Volume 3x สนับสนุน breakout
+          </div>
+          <div id="tab-scout" class="tab-content">
+            📰 <strong>Scout รายงานข่าว:</strong> Analyst จาก Goldman Sachs ปรับเป้าราคา HIMS ขึ้นจาก $25 เป็น $35 บริษัทประกาศขยาย GLP-1 weight loss program ใหม่ ข่าวเชิงบวกมากถึง 8 รายการในสัปดาห์นี้
+          </div>
+          <div id="tab-nova" class="tab-content">
+            🔢 <strong>Nova ผลการคำนวณ:</strong> Backtest 2 ปีที่ pattern นี้ win rate 78% กำไรเฉลี่ย 28% ต่อ trade Expected Value (EV) = +$4.20 per share Max drawdown ที่ stop นี้ 14.6%
+          </div>
+          <div id="tab-lex" class="tab-content">
+            💬 <strong>Lex Sentiment Analysis:</strong> Social sentiment 76% Bullish trending rank #3 บน StockTwits Reddit mentions เพิ่ม 312% ใน 48h คำที่ถูก mention บ่อย: "breakout", "GLP-1", "buy"
+          </div>
+          <div id="tab-byte" class="tab-content">
+            📊 <strong>Byte ข้อมูลเชิงลึก:</strong> Institutional ownership เพิ่มขึ้น 8% ใน Q4 Insider buying ล่าสุด CEO ซื้อ 50,000 หุ้น Short interest 12% — squeeze potential สูง
+          </div>
+          <div id="tab-doc" class="tab-content">
+            ⚠️ <strong>Doc ประเมินความเสี่ยง:</strong> ความเสี่ยงหลัก: FDA rule changes กระทบธุรกิจ GLP-1 Competition จาก Novo Nordisk Concentration risk 8% ของพอร์ต แนะนำ max position 10% ของพอร์ต
+          </div>
+          <div id="tab-volt" class="tab-content">
+            ⚡ <strong>Volt Execution Plan:</strong> แนะนำเข้า DCA 3 รอบ: 40% ที่ $20.50, 40% ที่ $21.20, 20% ที่ breakout confirm $22.00+ ใช้ Limit order ไม่ใช้ Market order
+          </div>
+          <div id="tab-echo" class="tab-content">
+            📝 <strong>Echo สรุปรายงาน:</strong> HIMS เป็น High Conviction trade สำหรับ Q3 2025 ทีมเห็นด้วย 8/9 เอเจนต์ความเสี่ยงอยู่ในระดับที่ยอมรับได้ แนะนำส่งเรื่องให้ CEO พิจารณา
+          </div>
+        </div>
+      </div>
+
+      <p class="microcopy">ผลลัพธ์จาก AI ใช้เพื่อการวิเคราะห์เท่านั้น</p>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="rightpanel">
+      <div class="section-title">แผนเทรด HIMS</div>
+      <div class="card mb-12">
+        <table class="table">
+          <tr><td class="text-muted text-xs">Entry Zone</td><td class="fw-600 text-sm">$20.20 – $21.60</td></tr>
+          <tr><td class="text-muted text-xs">Add</td><td class="fw-600 text-sm">$22.80</td></tr>
+          <tr><td class="text-muted text-xs">Stop Loss</td><td class="fw-600 text-sm text-red">$17.40</td></tr>
+          <tr><td class="text-muted text-xs">TP1</td><td class="fw-600 text-sm text-green">$26.20</td></tr>
+          <tr><td class="text-muted text-xs">TP2</td><td class="fw-600 text-sm text-green">$31.20</td></tr>
+          <tr><td class="text-muted text-xs">R:R</td><td class="fw-600 text-sm text-accent">1:2.4</td></tr>
+          <tr><td class="text-muted text-xs">Confidence</td><td class="fw-600 text-sm text-green">84%</td></tr>
+        </table>
+        <button class="btn-primary full-width mt-12">✓ อนุมัติแผน</button>
+      </div>
+
+      <div class="section-title">Verification Status</div>
+      <div class="card">
+        <div class="check-item"><span class="text-green">✓</span><span class="text-sm">ข่าวตรวจสอบแล้ว</span></div>
+        <div class="check-item"><span class="text-green">✓</span><span class="text-sm">เทคนิคผ่าน</span></div>
+        <div class="check-item"><span class="text-green">✓</span><span class="text-sm">พื้นฐานผ่าน</span></div>
+        <div class="check-item"><span class="text-green">✓</span><span class="text-sm">Risk ผ่านขีดจำกัด</span></div>
+        <div class="check-item"><span class="text-yellow">⏳</span><span class="text-sm text-muted">CEO อนุมัติ (รอ)</span></div>
+      </div>
+
+      <div class="section-title mt-12">ข่าวล่าสุด</div>
+      <div class="card">
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background:var(--green)"></div>
+          <div>
+            <div class="text-sm fw-600">Goldman ปรับเป้าขึ้น $35</div>
+            <div class="text-xs text-muted">2 ชม. ที่แล้ว</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="text-sm">ขยาย GLP-1 Program ใหม่</div>
+            <div class="text-xs text-muted">5 ชม. ที่แล้ว</div>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <div class="text-sm">CEO ซื้อหุ้นเพิ่ม 50,000</div>
+            <div class="text-xs text-muted">1 วันที่แล้ว</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/prices.js"></script>
+  <script>
+    document.querySelectorAll('#agent-tabs .tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('#agent-tabs .tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#agent-content .tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const tab = document.getElementById('tab-' + btn.dataset.tab);
+        if (tab) tab.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

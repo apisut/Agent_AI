@@ -38,7 +38,7 @@ function buildNav() {
   const ticker = document.getElementById('ticker');
   if (ticker) {
     ticker.innerHTML = `
-      <span class="ticker-item"><span class="ticker-label">S&amp;P500</span><span class="ticker-value" id="t-sp500">5,325</span><span class="price-up" id="t-sp500-c">+0.88%</span></span>
+      <span class="ticker-item"><span class="ticker-label">S&P500</span><span class="ticker-value" id="t-sp500">5,325</span><span class="price-up" id="t-sp500-c">+0.88%</span></span>
       <span class="ticker-item"><span class="ticker-label">NASDAQ</span><span class="ticker-value" id="t-nasdaq">17,721</span><span class="price-up" id="t-nasdaq-c">+1.35%</span></span>
       <span class="ticker-item"><span class="ticker-label">VIX</span><span class="ticker-value" id="t-vix">13.62</span><span class="price-down" id="t-vix-c">-5.23%</span></span>
       <span class="ticker-item"><span class="ticker-label">HIMS</span><span class="ticker-value" id="t-hims">--</span><span id="t-hims-c">--</span></span>

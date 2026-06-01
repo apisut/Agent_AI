@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>สแกนหุ้น — เอเจนวินเนอร์</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">เอเจนต์สแกน</div>
+      <div style="padding:8px 14px;display:flex;flex-direction:column;gap:6px">
+        <div class="flex gap-8"><span class="status-dot online"></span><span class="text-sm">Hermes</span><span class="text-xs text-muted ml-auto">สแกน</span></div>
+        <div class="flex gap-8"><span class="status-dot online"></span><span class="text-sm">Aria</span><span class="text-xs text-muted ml-auto">วิเคราะห์</span></div>
+        <div class="flex gap-8"><span class="status-dot online"></span><span class="text-sm">Scout</span><span class="text-xs text-muted ml-auto">ข่าว</span></div>
+        <div class="flex gap-8"><span class="status-dot busy"></span><span class="text-sm">Nova</span><span class="text-xs text-muted ml-auto">คำนวณ</span></div>
+        <div class="flex gap-8"><span class="status-dot offline"></span><span class="text-sm">Lex</span><span class="text-xs text-muted ml-auto">offline</span></div>
+        <div class="flex gap-8"><span class="status-dot online"></span><span class="text-sm">Byte</span><span class="text-xs text-muted ml-auto">ดึงข้อมูล</span></div>
+      </div>
+      <hr class="divider-h">
+      <div class="sidebar-section">สรุปการสแกน</div>
+      <div style="padding:8px 14px;display:flex;flex-direction:column;gap:6px;font-size:12px">
+        <div class="flex-between"><span class="text-muted">พบวันนี้</span><span class="fw-600">47</span></div>
+        <div class="flex-between"><span class="text-muted">ผ่านตัวกรอง</span><span class="fw-600 text-accent">12</span></div>
+        <div class="flex-between"><span class="text-muted">พร้อมแผน</span><span class="fw-600 text-green">5</span></div>
+        <div class="flex-between"><span class="text-muted">รอ CEO</span><span class="fw-600 text-yellow">3</span></div>
+      </div>
+      <hr class="divider-h">
+      <div class="sidebar-section">ตัวกรองด่วน</div>
+      <div style="padding:8px 14px;display:flex;flex-direction:column;gap:6px;font-size:12px">
+        <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> Biotech</label>
+        <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> Tech</label>
+        <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> AI/ML</label>
+        <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" style="accent-color:var(--accent)"> Small Cap</label>
+        <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" style="accent-color:var(--accent)"> High Volume</label>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <!-- Filter Bar -->
+      <div class="card mb-12">
+        <div class="flex gap-8 flex-wrap">
+          <div class="tabs" style="border:none;margin:0">
+            <button class="tab-btn active">ทั้งหมด</button>
+            <button class="tab-btn">Biotech</button>
+            <button class="tab-btn">Tech</button>
+            <button class="tab-btn">AI</button>
+            <button class="tab-btn">Small Cap</button>
+          </div>
+          <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+            <select class="input" style="width:140px;padding:5px 10px;font-size:12px">
+              <option>ขนาด Market Cap</option>
+              <option>Micro (&lt;$300M)</option>
+              <option>Small ($300M-$2B)</option>
+              <option>Mid ($2B-$10B)</option>
+            </select>
+            <select class="input" style="width:120px;padding:5px 10px;font-size:12px">
+              <option>Volume</option>
+              <option>สูงผิดปกติ 3x+</option>
+              <option>สูงผิดปกติ 2x+</option>
+              <option>ปกติ</option>
+            </select>
+            <button class="btn-primary">🔍 รันสแกน</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kanban Board -->
+      <div class="kanban-board">
+        <!-- Column 1 -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>💡 พบไอเดีย</span>
+            <span class="badge badge-gray">8</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">RXRX</span><span class="text-green text-xs">+3.12%</span></div>
+              <div class="text-xs text-muted mb-6">$8.67</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">Biotech</span><span class="tag">FDA</span></div>
+              <a href="stock.html" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">SOUN</span><span class="text-green text-xs">+6.80%</span></div>
+              <div class="text-xs text-muted mb-6">$5.34</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">AI/ML</span><span class="tag">Voice</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">BBAI</span><span class="text-green text-xs">+5.24%</span></div>
+              <div class="text-xs text-muted mb-6">$3.21</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">AI</span><span class="tag">Defense</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">NKLA</span><span class="text-red text-xs">-1.20%</span></div>
+              <div class="text-xs text-muted mb-6">$0.82</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">EV</span><span class="tag">Small</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>📰 ตรวจข่าวแล้ว</span>
+            <span class="badge badge-gray">6</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">HIMS</span><span class="text-green text-xs">+4.20%</span></div>
+              <div class="text-xs text-muted mb-6">$22.84</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">Telehealth</span><span class="tag">✅ ข่าวดี</span></div>
+              <a href="stock.html" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">ZETA</span><span class="text-green text-xs">+2.85%</span></div>
+              <div class="text-xs text-muted mb-6">$18.42</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">AdTech</span><span class="tag">✅ Upgrade</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">ACHR</span><span class="text-green text-xs">+8.40%</span></div>
+              <div class="text-xs text-muted mb-6">$12.30</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">eVTOL</span><span class="tag">Contract</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>📈 ผ่านเทคนิค</span>
+            <span class="badge badge-gray">5</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">PLTR</span><span class="text-green text-xs">+1.90%</span></div>
+              <div class="text-xs text-muted mb-6">$24.82</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">AI Gov</span><span class="tag">Bull Flag</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">BBAI</span><span class="text-green text-xs">+5.24%</span></div>
+              <div class="text-xs text-muted mb-6">$3.21</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">Breakout</span><span class="tag">Vol 4x</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 4 -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>🏦 ผ่านพื้นฐาน</span>
+            <span class="badge badge-gray">4</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">HIMS</span><span class="text-green text-xs">+4.20%</span></div>
+              <div class="text-xs text-muted mb-6">Rev Growth 60%</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">Profitable</span><span class="tag">Growing</span></div>
+              <a href="stock.html" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">ZETA</span><span class="text-green text-xs">+2.85%</span></div>
+              <div class="text-xs text-muted mb-6">Rev Growth 42%</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">AI-Driven</span><span class="tag">B2B</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 5 -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>🎯 พร้อมแผน</span>
+            <span class="badge badge-blue">3</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">HIMS</span><span class="text-green text-xs">+4.20%</span></div>
+              <div class="text-xs text-muted mb-6">Alpha Score 82</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">✅ พร้อม</span></div>
+              <a href="stock.html" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">ZETA</span><span class="text-green text-xs">+2.85%</span></div>
+              <div class="text-xs text-muted mb-6">Alpha Score 79</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">✅ พร้อม</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">RXRX</span><span class="text-green text-xs">+3.12%</span></div>
+              <div class="text-xs text-muted mb-6">Alpha Score 71</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">⚠️ Risk</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 6 -->
+        <div class="kanban-col">
+          <div class="kanban-col-header">
+            <span>👑 CEO Review</span>
+            <span class="badge badge-yellow">2</span>
+          </div>
+          <div class="kanban-cards">
+            <div class="stock-card highlight">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm text-accent">HIMS</span><span class="text-green text-xs">+4.20%</span></div>
+              <div class="text-xs text-muted mb-6">รอ อนุมัติ Janie</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">🔔 Urgent</span></div>
+              <a href="stock.html" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+            <div class="stock-card">
+              <div class="flex-between mb-4"><span class="fw-600 text-sm">ZETA</span><span class="text-green text-xs">+2.85%</span></div>
+              <div class="text-xs text-muted mb-6">รอ อนุมัติ Janie</div>
+              <div class="flex gap-4 flex-wrap mb-6"><span class="tag">⏳ รอ</span></div>
+              <a href="#" class="text-xs text-accent" style="text-decoration:none">ดูรายละเอียด →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="microcopy">ผลลัพธ์จาก AI ใช้เพื่อการวิเคราะห์เท่านั้น</p>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="rightpanel">
+      <div class="section-title">Top 5 วันนี้</div>
+      <div class="card mb-12">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div>
+            <div class="flex-between mb-4"><span class="text-sm fw-600">1. HIMS</span><span class="text-sm fw-600 text-green">82</span></div>
+            <div class="progress-bar"><div class="progress-fill green" style="width:82%"></div></div>
+          </div>
+          <div>
+            <div class="flex-between mb-4"><span class="text-sm fw-600">2. ZETA</span><span class="text-sm fw-600 text-green">79</span></div>
+            <div class="progress-bar"><div class="progress-fill green" style="width:79%"></div></div>
+          </div>
+          <div>
+            <div class="flex-between mb-4"><span class="text-sm fw-600">3. RXRX</span><span class="text-sm fw-600 text-yellow">71</span></div>
+            <div class="progress-bar"><div class="progress-fill yellow" style="width:71%"></div></div>
+          </div>
+          <div>
+            <div class="flex-between mb-4"><span class="text-sm fw-600">4. PLTR</span><span class="text-sm fw-600 text-yellow">68</span></div>
+            <div class="progress-bar"><div class="progress-fill yellow" style="width:68%"></div></div>
+          </div>
+          <div>
+            <div class="flex-between mb-4"><span class="text-sm fw-600">5. BBAI</span><span class="text-sm fw-600 text-yellow">65</span></div>
+            <div class="progress-bar"><div class="progress-fill yellow" style="width:65%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-title">Market Heatmap</div>
+      <div class="card mb-12">
+        <div class="heatmap">
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.7)">HIMS</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.5)">ZETA</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.4)">RXRX</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.6)">SOUN</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.3)">PLTR</div>
+          <div class="heatmap-cell" style="background:rgba(239,68,68,0.3)">AMD</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.5)">NVDA</div>
+          <div class="heatmap-cell" style="background:rgba(239,68,68,0.4)">META</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.4)">ACHR</div>
+          <div class="heatmap-cell" style="background:rgba(239,68,68,0.2)">TSLA</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.3)">BBAI</div>
+          <div class="heatmap-cell" style="background:rgba(239,68,68,0.5)">NKLA</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.2)">MSFT</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.4)">AAPL</div>
+          <div class="heatmap-cell" style="background:rgba(34,197,94,0.6)">GOOG</div>
+          <div class="heatmap-cell" style="background:rgba(239,68,68,0.3)">AMZN</div>
+        </div>
+      </div>
+
+      <div class="section-title">Watchlist Queue</div>
+      <div class="card">
+        <div class="status-row">
+          <span class="text-sm">ACHR</span>
+          <button class="btn-ghost btn-sm">ลบ</button>
+        </div>
+        <div class="status-row">
+          <span class="text-sm">LUNR</span>
+          <button class="btn-ghost btn-sm">ลบ</button>
+        </div>
+        <div class="status-row">
+          <span class="text-sm">RKLB</span>
+          <button class="btn-ghost btn-sm">ลบ</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/prices.js"></script>
+</body>
+</html>

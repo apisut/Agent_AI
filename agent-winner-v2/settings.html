@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ตั้งค่า — เอเจนวินเนอร์</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">ตั้งค่า</div>
+      <a href="#" class="active" onclick="switchTab('general');return false">⚙️ ทั่วไป</a>
+      <a href="#" onclick="switchTab('apikeys');return false">🔑 API Keys</a>
+      <a href="#" onclick="switchTab('agents');return false">🤖 เอเจนต์</a>
+      <a href="#" onclick="switchTab('risk');return false">⚠️ ความเสี่ยง</a>
+      <a href="#" onclick="switchTab('notifications');return false">🔔 การแจ้งเตือน</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <div class="page-title mb-12">⚙️ ตั้งค่าระบบ</div>
+
+      <!-- Tab Nav -->
+      <div class="tabs mb-16">
+        <button class="tab-btn active" id="tab-general-btn" onclick="switchTab('general')">ทั่วไป</button>
+        <button class="tab-btn" id="tab-apikeys-btn" onclick="switchTab('apikeys')">API Keys</button>
+        <button class="tab-btn" id="tab-agents-btn" onclick="switchTab('agents')">เอเจนต์</button>
+        <button class="tab-btn" id="tab-risk-btn" onclick="switchTab('risk')">ความเสี่ยง</button>
+        <button class="tab-btn" id="tab-notifications-btn" onclick="switchTab('notifications')">การแจ้งเตือน</button>
+      </div>
+
+      <!-- TAB: ทั่วไป -->
+      <div id="section-general" class="tab-content active">
+        <div class="card mb-12">
+          <div class="card-title">โปรไฟล์ผู้ใช้</div>
+          <div class="grid-2" style="gap:16px">
+            <div class="form-group">
+              <label class="form-label">ชื่อผู้ใช้</label>
+              <input class="input" type="text" value="Janie" placeholder="ชื่อของคุณ" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">อีเมล</label>
+              <input class="input" type="email" value="janie@agentwinnerv2.ai" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">ภาษา</label>
+              <select class="input">
+                <option selected>ภาษาไทย</option>
+                <option>English</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Timezone</label>
+              <select class="input">
+                <option selected>Asia/Bangkok (GMT+7)</option>
+                <option>America/New_York (EST)</option>
+                <option>UTC</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn-primary mt-8">บันทึกโปรไฟล์</button>
+        </div>
+
+        <div class="card mb-12">
+          <div class="card-title">การแสดงผล</div>
+          <div class="form-group">
+            <label class="form-label">Theme</label>
+            <select class="input" style="width:200px">
+              <option selected>Dark Mode</option>
+              <option disabled>Light Mode (เร็วๆ นี้)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">ขนาดตัวอักษร</label>
+            <select class="input" style="width:200px">
+              <option>Small (12px)</option>
+              <option selected>Default (14px)</option>
+              <option>Large (16px)</option>
+            </select>
+          </div>
+          <button class="btn-primary mt-8">บันทึกการแสดงผล</button>
+        </div>
+      </div>
+
+      <!-- TAB: API Keys -->
+      <div id="section-apikeys" class="tab-content">
+        <div class="card mb-12">
+          <div class="card-title">🔑 Qwen API Key (Alibaba Cloud)</div>
+          <div class="form-group">
+            <label class="form-label">API Key</label>
+            <input class="input" type="password" id="api-key-input" placeholder="sk-xxxxxxxxxxxxxxxxxxxxxxxx" style="font-family:'Courier New',monospace" />
+          </div>
+          <div id="key-status" class="text-xs mb-12" style="padding:6px 10px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius)">
+            สถานะ: <span id="key-status-text" style="color:var(--text-muted)">ยังไม่ได้ตั้งค่า</span>
+          </div>
+          <div class="flex gap-8">
+            <button id="save-key" class="btn-primary">💾 บันทึก API Key</button>
+            <button id="test-key" class="btn-ghost">🔌 ทดสอบการเชื่อมต่อ</button>
+            <button id="clear-key" class="btn-ghost" style="color:var(--red)">🗑 ลบ Key</button>
+          </div>
+        </div>
+
+        <div class="card mb-12">
+          <div class="card-title">ℹ️ วิธีรับ Qwen API Key</div>
+          <div class="text-xs text-secondary" style="line-height:1.8">
+            <p>1. ไปที่ <span class="font-mono text-accent">https://www.alibabacloud.com/</span></p>
+            <p>2. สร้างบัญชีและเข้าสู่ DashScope Console</p>
+            <p>3. ไปที่ API Keys → Create API Key</p>
+            <p>4. Copy key และวางที่ช่องด้านบน</p>
+            <p class="mt-8 text-muted">* Key จะถูกบันทึกใน localStorage ของเบราว์เซอร์เท่านั้น ไม่ส่งไปเซิร์ฟเวอร์</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🔗 API อื่นๆ (Optional)</div>
+          <div class="form-group">
+            <label class="form-label">News API Key</label>
+            <input class="input" type="password" placeholder="xxxxxxxxxxxxxxxxxxxxxxxx" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Alpha Vantage Key</label>
+            <input class="input" type="password" placeholder="xxxxxxxxxxxxxxxxxxxxxxxx" />
+          </div>
+          <button class="btn-ghost mt-8">บันทึก API อื่นๆ</button>
+        </div>
+      </div>
+
+      <!-- TAB: เอเจนต์ -->
+      <div id="section-agents" class="tab-content">
+        <div class="card mb-12">
+          <div class="card-title">⚙️ การตั้งค่าเอเจนต์</div>
+          <div class="form-group">
+            <label class="form-label">โมเดล AI หลัก</label>
+            <select class="input" style="width:200px">
+              <option selected>qwen-plus</option>
+              <option>qwen-max</option>
+              <option>qwen-turbo</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Temperature (ความสร้างสรรค์)</label>
+            <input class="input" type="range" min="0" max="1" step="0.1" value="0.7" style="padding:4px" />
+            <span class="text-xs text-muted">0.7</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Max Tokens ต่อการตอบ</label>
+            <input class="input" type="number" value="2048" style="width:120px" />
+          </div>
+          <button class="btn-primary mt-8">บันทึกตั้งค่าเอเจนต์</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🤖 เปิด/ปิดเอเจนต์</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="flex-between"><span class="text-sm">Hermes (Commander)</span><label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> เปิดใช้</label></div>
+            <div class="flex-between"><span class="text-sm">Aria (Market Analyst)</span><label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> เปิดใช้</label></div>
+            <div class="flex-between"><span class="text-sm">Scout (News Hunter)</span><label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> เปิดใช้</label></div>
+            <div class="flex-between"><span class="text-sm">Nova (Quant)</span><label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> เปิดใช้</label></div>
+            <div class="flex-between"><span class="text-sm">Lex (Sentiment)</span><label style="cursor:pointer"><input type="checkbox" style="accent-color:var(--accent)"> เปิดใช้</label></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: ความเสี่ยง -->
+      <div id="section-risk" class="tab-content">
+        <div class="card mb-12">
+          <div class="card-title">⚠️ การจัดการความเสี่ยง</div>
+          <div class="grid-2" style="gap:16px">
+            <div class="form-group">
+              <label class="form-label">Max Position Size (%)</label>
+              <input class="input" type="number" value="10" min="1" max="50" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Max Daily Loss ($)</label>
+              <input class="input" type="number" value="5000" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Default Stop Loss (%)</label>
+              <input class="input" type="number" value="8" min="1" max="30" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Min R:R Ratio</label>
+              <input class="input" type="number" value="2" step="0.5" />
+            </div>
+          </div>
+          <button class="btn-primary mt-8">บันทึกตั้งค่าความเสี่ยง</button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">🚨 Alerts</div>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:13px">
+            <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> แจ้งเตือนเมื่อ Stop Loss triggered</label>
+            <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> แจ้งเตือนเมื่อ Position ใหญ่เกิน limit</label>
+            <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"> แจ้งเตือนเมื่อ VIX spike</label>
+            <label class="flex gap-8" style="cursor:pointer"><input type="checkbox" style="accent-color:var(--accent)"> แจ้งเตือนทุกการเทรด</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: การแจ้งเตือน -->
+      <div id="section-notifications" class="tab-content">
+        <div class="card mb-12">
+          <div class="card-title">🔔 การแจ้งเตือน</div>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:13px">
+            <div class="flex-between">
+              <div><div class="fw-600">Price Alerts</div><div class="text-xs text-muted">แจ้งเมื่อราคาถึงเป้าหมาย</div></div>
+              <label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"></label>
+            </div>
+            <div class="flex-between">
+              <div><div class="fw-600">News Alerts</div><div class="text-xs text-muted">แจ้งเมื่อมีข่าวสำคัญ</div></div>
+              <label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"></label>
+            </div>
+            <div class="flex-between">
+              <div><div class="fw-600">Mission Complete</div><div class="text-xs text-muted">แจ้งเมื่อ mission เสร็จ</div></div>
+              <label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"></label>
+            </div>
+            <div class="flex-between">
+              <div><div class="fw-600">CEO Approval Required</div><div class="text-xs text-muted">แจ้งเมื่อต้องอนุมัติ</div></div>
+              <label style="cursor:pointer"><input type="checkbox" checked style="accent-color:var(--accent)"></label>
+            </div>
+          </div>
+          <button class="btn-primary mt-12">บันทึกการแจ้งเตือน</button>
+        </div>
+      </div>
+
+      <p class="microcopy">ผลลัพธ์จาก AI ใช้เพื่อการวิเคราะห์เท่านั้น</p>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="rightpanel">
+      <div class="section-title">คำแนะนำ</div>
+      <div class="card mb-12">
+        <div class="text-xs text-secondary" style="line-height:1.8">
+          <p class="fw-600 mb-8">🚀 เริ่มต้นใช้งาน</p>
+          <p>1. ใส่ Qwen API Key ใน tab "API Keys"</p>
+          <p>2. กด "ทดสอบการเชื่อมต่อ"</p>
+          <p>3. ไปที่หน้า Hermes เพื่อเริ่มสั่งการ</p>
+          <p class="mt-8 text-muted">ข้อมูล API Key จะถูกเก็บ ใน localStorage เบราว์เซอร์ของคุณเท่านั้น</p>
+        </div>
+      </div>
+
+      <div class="section-title">Version Info</div>
+      <div class="card mb-12">
+        <div class="status-row"><span class="text-xs text-muted">Version</span><span class="fw-600 font-mono">v1.1.0</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Build Date</span><span class="text-xs">Jun 1, 2025</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Agent SDK</span><span class="text-xs">Qwen Plus</span></div>
+      </div>
+
+      <div class="section-title">Keyboard Shortcuts</div>
+      <div class="card">
+        <div class="status-row"><span class="text-xs text-muted">ส่งคำสั่ง Hermes</span><span class="font-mono text-xs">Ctrl+Enter</span></div>
+        <div class="status-row"><span class="text-xs text-muted">ค้นหา</span><span class="font-mono text-xs">Ctrl+K</span></div>
+        <div class="status-row"><span class="text-xs text-muted">หน้าแรก</span><span class="font-mono text-xs">Alt+H</span></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/prices.js"></script>
+  <script>
+    // Load saved key status on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedKey = localStorage.getItem('qwen_api_key');
+      const statusEl = document.getElementById('key-status-text');
+      if (savedKey && savedKey.length > 0) {
+        statusEl.textContent = 'บันทึกแล้ว (' + savedKey.substring(0, 8) + '***)';
+        statusEl.style.color = 'var(--green)';
+      }
+    });
+
+    // Save key
+    document.getElementById('save-key').onclick = () => {
+      const val = document.getElementById('api-key-input').value.trim();
+      if (!val) { alert('กรุณาใส่ API Key ก่อน'); return; }
+      localStorage.setItem('qwen_api_key', val);
+      const statusEl = document.getElementById('key-status-text');
+      statusEl.textContent = 'บันทึกแล้ว (' + val.substring(0, 8) + '***)';
+      statusEl.style.color = 'var(--green)';
+      alert('บันทึกแล้ว');
+    };
+
+    // Test connection
+    document.getElementById('test-key').onclick = async () => {
+      const key = localStorage.getItem('qwen_api_key') || document.getElementById('api-key-input').value.trim();
+      if (!key) { alert('กรุณาบันทึก API Key ก่อน'); return; }
+      const btn = document.getElementById('test-key');
+      btn.textContent = '⏳ กำลังทดสอบ...';
+      try {
+        const res = await fetch('https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+          body: JSON.stringify({ model: 'qwen-plus', messages: [{ role: 'user', content: 'ping' }], max_tokens: 10 }),
+        });
+        if (res.ok) {
+          btn.textContent = '✅ เชื่อมต่อสำเร็จ';
+          setTimeout(() => { btn.textContent = '🔌 ทดสอบการเชื่อมต่อ'; }, 3000);
+        } else {
+          btn.textContent = '❌ API Key ไม่ถูกต้อง';
+          setTimeout(() => { btn.textContent = '🔌 ทดสอบการเชื่อมต่อ'; }, 3000);
+        }
+      } catch (e) {
+        btn.textContent = '❌ เชื่อมต่อไม่ได้';
+        setTimeout(() => { btn.textContent = '🔌 ทดสอบการเชื่อมต่อ'; }, 3000);
+      }
+    };
+
+    // Clear key
+    document.getElementById('clear-key').onclick = () => {
+      if (confirm('ต้องการลบ API Key หรือไม่?')) {
+        localStorage.removeItem('qwen_api_key');
+        document.getElementById('api-key-input').value = '';
+        const statusEl = document.getElementById('key-status-text');
+        statusEl.textContent = 'ยังไม่ได้ตั้งค่า';
+        statusEl.style.color = 'var(--text-muted)';
+      }
+    };
+
+    // Tab switching
+    function switchTab(tabId) {
+      const tabs = ['general', 'apikeys', 'agents', 'risk', 'notifications'];
+      tabs.forEach(t => {
+        const content = document.getElementById('section-' + t);
+        const btn = document.getElementById('tab-' + t + '-btn');
+        if (content) content.classList.remove('active');
+        if (btn) btn.classList.remove('active');
+      });
+      const active = document.getElementById('section-' + tabId);
+      const activeBtn = document.getElementById('tab-' + tabId + '-btn');
+      if (active) active.classList.add('active');
+      if (activeBtn) activeBtn.classList.add('active');
+
+      // Update sidebar active
+      document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+    }
+  </script>
+</body>
+</html>

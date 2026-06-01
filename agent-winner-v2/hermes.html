@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermes Commander — เอเจนวินเนอร์</title>
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <nav class="topnav" id="topnav"></nav>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">Hermes</div>
+      <a href="hermes.html" class="active">🧠 Command Input</a>
+      <a href="#">📋 Mission Planner</a>
+      <a href="#">🔀 Dispatch Flow</a>
+      <a href="#">✅ Decision Queue <span class="sidebar-badge">5</span></a>
+      <a href="#">💬 Team Discussion</a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="content">
+      <!-- Command Section -->
+      <div class="card">
+        <div class="card-title">🧠 สั่งการ Hermes</div>
+        <textarea id="hermes-input" class="input" rows="4" placeholder="พิมพ์คำสั่งให้ Hermes เช่น 'วิเคราะห์ตลาดวันนี้' หรือ 'สแกนหุ้น Biotech ที่มี catalyst'..."></textarea>
+        <div class="flex gap-8 mt-8">
+          <button id="hermes-send" class="btn-primary">🚀 ส่งคำสั่ง</button>
+          <button class="btn-ghost" onclick="document.getElementById('hermes-input').value='';document.getElementById('hermes-response').innerHTML='<span class=text-muted>รอคำสั่ง...</span>'">🗑 ล้าง</button>
+        </div>
+        <div class="flex flex-wrap gap-6 mt-8">
+          <span class="chip" onclick="setCmd(this)">วิเคราะห์ตลาดวันนี้</span>
+          <span class="chip" onclick="setCmd(this)">สแกนหุ้น Biotech</span>
+          <span class="chip" onclick="setCmd(this)">ตรวจสอบพอร์ต</span>
+          <span class="chip" onclick="setCmd(this)">รายงานข่าว</span>
+          <span class="chip" onclick="setCmd(this)">ประเมินความเสี่ยง</span>
+        </div>
+      </div>
+
+      <!-- Response Area -->
+      <div class="card mt-12">
+        <div class="card-title">📡 ผลลัพธ์จาก Hermes</div>
+        <div id="hermes-response" style="min-height:200px;font-size:13px;line-height:1.7;color:var(--text-secondary)">
+          <span class="text-muted">รอคำสั่ง... พิมพ์หรือเลือก Quick Command ด้านบน</span>
+        </div>
+      </div>
+
+      <!-- Mission Planner -->
+      <div class="card mt-12">
+        <div class="card-title">📋 Mission Planner</div>
+        <div>
+          <div class="step-item">
+            <div class="step-num">1</div>
+            <div class="flex-1">
+              <div class="flex-between">
+                <div class="flex gap-8"><span class="agent-node" style="font-size:11px">H Hermes</span><span class="text-sm">รับคำสั่งและวางแผน</span></div>
+                <span class="badge badge-green">เสร็จแล้ว</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">2</div>
+            <div class="flex-1">
+              <div class="flex-between">
+                <div class="flex gap-8"><span class="agent-node" style="font-size:11px">A Aria</span><span class="text-sm">วิเคราะห์ราคาและ trend</span></div>
+                <span class="badge badge-green">เสร็จแล้ว</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">3</div>
+            <div class="flex-1">
+              <div class="flex-between">
+                <div class="flex gap-8"><span class="agent-node" style="font-size:11px">S Scout</span><span class="text-sm">ค้นหาข่าวและ catalyst</span></div>
+                <span class="badge badge-blue">กำลังทำ</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">4</div>
+            <div class="flex-1">
+              <div class="flex-between">
+                <div class="flex gap-8"><span class="agent-node" style="font-size:11px">N Nova</span><span class="text-sm">คำนวณ risk/reward model</span></div>
+                <span class="badge badge-gray">รอ</span>
+              </div>
+            </div>
+          </div>
+          <div class="step-item">
+            <div class="step-num">5</div>
+            <div class="flex-1">
+              <div class="flex-between">
+                <div class="flex gap-8"><span class="agent-node" style="font-size:11px">E Echo</span><span class="text-sm">สรุปรายงานและส่ง CEO</span></div>
+                <span class="badge badge-gray">รอ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent Dispatch Flow -->
+      <div class="card mt-12">
+        <div class="card-title">🔀 Agent Dispatch Flow</div>
+        <div class="dispatch-flow">
+          <div class="agent-node" style="border-color:var(--accent-border);background:var(--accent-subtle);color:var(--accent)">⬡ Hermes</div>
+          <span class="flow-arrow">→</span>
+          <div class="agent-node">A Aria</div>
+          <span class="flow-arrow">→</span>
+          <div class="agent-node">S Scout</div>
+          <span class="flow-arrow">→</span>
+          <div class="agent-node">N Nova</div>
+          <span class="flow-arrow">→</span>
+          <div class="agent-node">D Doc</div>
+          <span class="flow-arrow">→</span>
+          <div class="agent-node">V Volt</div>
+          <span class="flow-arrow">→</span>
+          <div class="agent-node" style="border-color:var(--accent-border)">E Echo</div>
+        </div>
+      </div>
+
+      <!-- Decision Queue -->
+      <div class="card mt-12">
+        <div class="card-title">✅ Decision Queue</div>
+        <div class="grid-3">
+          <div class="card" style="padding:10px">
+            <div class="text-sm fw-600 mb-4">ซื้อ HIMS 500 หุ้น @$21.50</div>
+            <div class="flex gap-4 mb-8"><span class="badge badge-yellow">เสี่ยงปานกลาง</span></div>
+            <div class="text-xs text-muted mb-8">Confidence: 84% | R:R 1:2.4</div>
+            <div class="flex gap-6">
+              <button class="btn-primary btn-sm">✓ อนุมัติ</button>
+              <button class="btn-ghost btn-sm">✗ ปฏิเสธ</button>
+            </div>
+          </div>
+          <div class="card" style="padding:10px">
+            <div class="text-sm fw-600 mb-4">ตั้ง Alert ZETA @$20</div>
+            <div class="flex gap-4 mb-8"><span class="badge badge-green">เสี่ยงต่ำ</span></div>
+            <div class="text-xs text-muted mb-8">Scout แนะนำ | breakout zone</div>
+            <div class="flex gap-6">
+              <button class="btn-primary btn-sm">✓ อนุมัติ</button>
+              <button class="btn-ghost btn-sm">✗ ปฏิเสธ</button>
+            </div>
+          </div>
+          <div class="card" style="padding:10px">
+            <div class="text-sm fw-600 mb-4">ลด Position RXRX 30%</div>
+            <div class="flex gap-4 mb-8"><span class="badge badge-red">เสี่ยงสูง</span></div>
+            <div class="text-xs text-muted mb-8">Doc แนะนำ | risk limit</div>
+            <div class="flex gap-6">
+              <button class="btn-primary btn-sm">✓ อนุมัติ</button>
+              <button class="btn-ghost btn-sm">✗ ปฏิเสธ</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk Alerts -->
+      <div class="card mt-12">
+        <div class="card-title">⚠️ Risk Alerts</div>
+        <div class="alert-row">
+          <span class="badge badge-yellow">⚠️</span>
+          <div class="flex-1">
+            <div class="text-sm fw-600">RXRX Concentration เกิน 8% ของพอร์ต</div>
+            <div class="text-xs text-muted">Doc แนะนำลด Position ลง 30% เพื่อ risk management</div>
+          </div>
+        </div>
+        <div class="alert-row">
+          <span class="badge badge-red">🔴</span>
+          <div class="flex-1">
+            <div class="text-sm fw-600">Stop Loss NVDA ยังไม่ได้ตั้ง</div>
+            <div class="text-xs text-muted">Volt รอคำสั่ง — ราคาปัจจุบัน $128.40 ใกล้ support</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Discussion -->
+      <div class="card mt-12">
+        <div class="card-title">💬 Team Discussion</div>
+        <div class="chat-messages" style="height:200px">
+          <div><div class="chat-msg-meta">Hermes · 09:41</div><div class="chat-msg chat-msg-ai">ทีม — วันนี้ Focus ที่ HIMS และ ZETA ก่อนนะ</div></div>
+          <div><div class="chat-msg-meta">Aria · 09:42</div><div class="chat-msg chat-msg-ai">HIMS กำลัง breakout จาก wedge pattern</div></div>
+          <div><div class="chat-msg-meta">Scout · 09:43</div><div class="chat-msg chat-msg-user">เจอข่าว HIMS ราคาเป้า analyst raised to $35!</div></div>
+          <div><div class="chat-msg-meta">Nova · 09:44</div><div class="chat-msg chat-msg-ai">Backtest แสดง 82% win rate ที่ entry zone นี้</div></div>
+        </div>
+        <div class="chat-input-row">
+          <input class="input" style="font-size:12px;padding:5px 10px" placeholder="ส่งข้อความถึงทีม..." />
+          <button class="btn-primary btn-sm">ส่ง</button>
+        </div>
+      </div>
+
+      <p class="microcopy">ผลลัพธ์จาก AI ใช้เพื่อการวิเคราะห์เท่านั้น</p>
+    </main>
+
+    <!-- RIGHT PANEL -->
+    <aside class="rightpanel">
+      <div class="section-title">Hermes Profile</div>
+      <div class="card mb-12">
+        <div class="profile-section">
+          <div class="avatar-lg" style="background:var(--accent-subtle);color:var(--accent);margin:0 auto 8px">H</div>
+          <div class="fw-600" style="font-size:15px">Hermes</div>
+          <div class="mt-4"><span class="badge badge-accent">Commander AI</span></div>
+        </div>
+        <div class="status-row"><span class="text-xs text-muted">Missions สำเร็จ</span><span class="fw-600">142</span></div>
+        <div class="status-row"><span class="text-xs text-muted">ความแม่นยำ</span><span class="fw-600 text-green">94%</span></div>
+        <div class="status-row"><span class="text-xs text-muted">Uptime</span><span class="fw-600 text-green">99.8%</span></div>
+      </div>
+
+      <div class="section-title">Learning Memory</div>
+      <div class="card mb-12">
+        <div class="flex-between mb-6">
+          <span class="text-xs text-muted">ความจำที่เรียนรู้</span>
+          <span class="text-xs fw-600 text-accent">78%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div>
+        <div class="text-xs text-muted mt-8">รายการที่บันทึก: 1,842 patterns</div>
+      </div>
+
+      <div class="section-title">Active Playbooks</div>
+      <div class="card mb-12">
+        <div class="check-item"><span class="text-green">✓</span><span class="text-sm">Biotech Momentum Strategy</span></div>
+        <div class="check-item"><span class="text-green">✓</span><span class="text-sm">AI/ML Sector Rotation</span></div>
+        <div class="check-item"><span class="text-muted">○</span><span class="text-sm text-muted">Small Cap Breakout (pause)</span></div>
+      </div>
+
+      <div class="section-title">System Status</div>
+      <div class="card">
+        <div class="status-row"><span class="text-xs">API Gateway</span><span class="flex gap-4"><span class="status-dot online"></span><span class="text-xs text-green">Online</span></span></div>
+        <div class="status-row"><span class="text-xs">AI Engine</span><span class="flex gap-4"><span class="status-dot online"></span><span class="text-xs text-green">Online</span></span></div>
+        <div class="status-row"><span class="text-xs">Data Feed</span><span class="flex gap-4"><span class="status-dot online"></span><span class="text-xs text-green">Online</span></span></div>
+        <div class="status-row"><span class="text-xs">News Engine</span><span class="flex gap-4"><span class="status-dot online"></span><span class="text-xs text-green">Online</span></span></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="ticker" id="ticker"></div>
+  <script src="js/nav.js"></script>
+  <script src="js/prices.js"></script>
+  <script src="js/api.js"></script>
+  <script>
+    function setCmd(el) {
+      document.getElementById('hermes-input').value = el.textContent;
+    }
+
+    document.getElementById('hermes-send').addEventListener('click', async () => {
+      const input = document.getElementById('hermes-input');
+      const response = document.getElementById('hermes-response');
+      const msg = input.value.trim();
+      if (!msg) return;
+      response.innerHTML = '<span class="text-muted">⏳ Hermes กำลังคิด...</span>';
+      try {
+        await callQwenAPI('hermes', msg, (partial) => {
+          response.innerHTML = renderMarkdown(partial);
+        });
+      } catch (e) {
+        response.innerHTML = '<span class="text-red">เกิดข้อผิดพลาด: ' + e.message + '</span>';
+      }
+    });
+  </script>
+</body>
+</html>
