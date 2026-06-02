@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+{% block title %}CEO Command — TradePilot OS{% endblock %}
+
+{% block content %}
+<header class="top-header">
+  <div class="header-greeting">
+    <h3>👑 CEO Command Center</h3>
+    <p>{{ current_date }}</p>
+  </div>
+  <div class="header-right" style="margin-left:auto">
+    <button class="btn-sm btn-outline" onclick="clearHistory()">🗑️ Clear Chat</button>
+  </div>
+</header>
+
+<div class="page-content" style="display:grid;grid-template-columns:280px 1fr;gap:14px;height:calc(100vh - 100px)">
+
+  <!-- LEFT: CEO + Quick Commands -->
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card">
+      <div class="ceo-avatar-area" style="min-height:200px">
+        <div class="ceo-avatar-bg"></div>
+        <div class="ceo-avatar-emoji" style="font-size:90px">🤖</div>
+        <div class="ceo-speech-bubble">
+          <strong>CEO Agent — Powered by Qwen</strong>
+          พร้อมรับคำสั่งครับ Commander
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title">⚡ Quick Commands</div></div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:6px">
+        {% set cmds = [
+          ('🔍 สแกนตลาดวันนี้', 'สแกนตลาดวันนี้ บอกหุ้นเด่นที่ควรจับตา'),
+          ('📈 วิเคราะห์ NVDA', 'วิเคราะห์ NVDA แบบละเอียด Entry SL TP'),
+          ('🛡️ ตรวจพอร์ต', 'ตรวจสอบพอร์ตลงทุน และแนะนำการปรับสมดุล'),
+          ('📰 สรุปข่าว', 'สรุปข่าวตลาดวันนี้และผลกระทบต่อหุ้น'),
+          ('🎯 หาหุ้น AI Sector', 'หาหุ้นกลุ่ม AI/Semiconductor ที่น่าสนใจ'),
+          ('⚡ Daily Routine', 'รันงานประจำวัน สแกน วิเคราะห์ และสรุปแผน'),
+        ] %}
+        {% for label, cmd in cmds %}
+        <button class="quick-btn" style="text-align:left;padding:8px 12px" onclick="setCmd('{{ cmd }}')">{{ label }}</button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: CHAT -->
+  <div class="card" style="display:flex;flex-direction:column;overflow:hidden">
+    <div class="card-header">
+      <div class="card-title">💬 Chat with CEO Agent</div>
+      <span style="font-size:10px;color:var(--accent-green);display:flex;align-items:center;gap:5px">
+        <span style="width:6px;height:6px;border-radius:50%;background:var(--accent-green);animation:pulse 2s infinite;display:inline-block"></span>
+        Qwen Online
+      </span>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="chat-messages" style="flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px">
+      {% if not chat_history %}
+      <div style="text-align:center;padding:40px 20px;color:var(--text-muted)">
+        <div style="font-size:40px;margin-bottom:12px">🤖</div>
+        <div style="font-size:14px">สวัสดีครับ Commander!</div>
+        <div style="font-size:12px;margin-top:8px">พิมพ์คำสั่งหรือเลือก Quick Command ได้เลยครับ</div>
+      </div>
+      {% endif %}
+      {% for msg in chat_history %}
+      <div class="chat-msg {{ msg.role }}" style="display:flex;{% if msg.role == 'user' %}justify-content:flex-end{% endif %}">
+        {% if msg.role == 'assistant' %}
+        <span style="font-size:20px;margin-right:8px;align-self:flex-start">🤖</span>
+        {% endif %}
+        <div style="max-width:75%;padding:10px 14px;border-radius:12px;font-size:12px;line-height:1.7;
+          {% if msg.role == 'user' %}
+            background:var(--accent-blue);color:white;border-bottom-right-radius:4px
+          {% else %}
+            background:var(--bg-secondary);border:1px solid var(--border);border-bottom-left-radius:4px
+          {% endif %}">
+          {{ msg.content | replace('\n', '<br>') | safe }}
+        </div>
+        {% if msg.role == 'user' %}
+        <span style="font-size:20px;margin-left:8px;align-self:flex-start">🧑‍💼</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- TYPING INDICATOR -->
+    <div id="typing-indicator" style="display:none;padding:0 16px 8px;font-size:11px;color:var(--text-muted)">
+      🤖 CEO กำลังคิด...
+    </div>
+
+    <!-- INPUT -->
+    <div style="padding:14px 16px;border-top:1px solid var(--border);display:flex;gap:8px">
+      <input id="chat-input" class="ceo-input" type="text"
+        placeholder='สั่ง CEO ได้เลย เช่น "วิเคราะห์ NVDA" หรือ "สร้างแผนเทรด AMD"'
+        style="flex:1">
+      <button id="send-btn" class="ceo-send-btn" onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let chatHistory = {{ chat_history | tojson }};
+const messagesEl = document.getElementById('chat-messages');
+
+function scrollBottom() {
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
+scrollBottom();
+
+function setCmd(cmd) {
+  document.getElementById('chat-input').value = cmd;
+  document.getElementById('chat-input').focus();
+}
+
+function appendMsg(role, content) {
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.style.cssText = `display:flex;${role === 'user' ? 'justify-content:flex-end' : ''}`;
+  const bubble = document.createElement('div');
+  bubble.style.cssText = `max-width:75%;padding:10px 14px;border-radius:12px;font-size:12px;line-height:1.7;
+    ${role === 'user'
+      ? 'background:var(--accent-blue);color:white;border-bottom-right-radius:4px'
+      : 'background:var(--bg-secondary);border:1px solid var(--border);border-bottom-left-radius:4px'}`;
+  bubble.innerHTML = content.replace(/\n/g, '<br>');
+
+  if (role === 'assistant') {
+    const icon = document.createElement('span');
+    icon.textContent = '🤖';
+    icon.style.cssText = 'font-size:20px;margin-right:8px;align-self:flex-start';
+    div.appendChild(icon);
+  }
+  div.appendChild(bubble);
+  if (role === 'user') {
+    const icon = document.createElement('span');
+    icon.textContent = '🧑‍💼';
+    icon.style.cssText = 'font-size:20px;margin-left:8px;align-self:flex-start';
+    div.appendChild(icon);
+  }
+
+  messagesEl.appendChild(div);
+
+  // Remove empty state
+  const emptyState = messagesEl.querySelector('[style*="text-align:center"]');
+  if (emptyState) emptyState.remove();
+
+  scrollBottom();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chat-input');
+  const cmd = input.value.trim();
+  if (!cmd) return;
+
+  input.value = '';
+  document.getElementById('send-btn').disabled = true;
+  appendMsg('user', cmd);
+
+  chatHistory.push({role: 'user', content: cmd});
+  document.getElementById('typing-indicator').style.display = 'block';
+  scrollBottom();
+
+  try {
+    const resp = await fetch('/api/ceo/command', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({command: cmd, history: chatHistory.slice(-8)})
+    });
+    const data = await resp.json();
+    document.getElementById('typing-indicator').style.display = 'none';
+    appendMsg('assistant', data.message);
+    chatHistory.push({role: 'assistant', content: data.message});
+  } catch(e) {
+    document.getElementById('typing-indicator').style.display = 'none';
+    appendMsg('assistant', '❌ ไม่สามารถเชื่อมต่อได้ กรุณาลองใหม่');
+  }
+
+  document.getElementById('send-btn').disabled = false;
+  input.focus();
+}
+
+function clearHistory() {
+  if (confirm('ลบประวัติการสนทนาทั้งหมดไหมครับ?')) {
+    chatHistory = [];
+    messagesEl.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-muted)"><div style="font-size:40px">🤖</div><div style="font-size:14px;margin-top:12px">พิมพ์คำสั่งได้เลยครับ</div></div>';
+  }
+}
+
+document.getElementById('chat-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+});
+</script>
+{% endblock %}

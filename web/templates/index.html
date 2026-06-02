@@ -22,60 +22,46 @@
     <!-- MAIN -->
     <div class="sidebar-section">
       <div class="sidebar-section-label">Main</div>
-      <a class="sidebar-nav-item active" href="#">
+      <a class="sidebar-nav-item active" href="/">
         <span class="nav-icon">📊</span> Dashboard
       </a>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/ceo">
         <span class="nav-icon">👑</span> CEO Command
       </a>
-      <a class="sidebar-nav-item" href="#">
-        <span class="nav-icon">🌏</span> Market Pulse
-      </a>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/watchlist">
         <span class="nav-icon">⭐</span> Watchlist
-        <span class="nav-badge">5</span>
       </a>
     </div>
 
     <!-- RESEARCH -->
     <div class="sidebar-section">
       <div class="sidebar-section-label">Research</div>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/scanner">
         <span class="nav-icon">🔍</span> Stock Scanner
       </a>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/news">
         <span class="nav-icon">📰</span> News Intelligence
-        <span class="nav-badge">3</span>
-      </a>
-      <a class="sidebar-nav-item" href="#">
-        <span class="nav-icon">🔬</span> Research Desk
-      </a>
-      <a class="sidebar-nav-item" href="#">
-        <span class="nav-icon">📋</span> SEC & Earnings
       </a>
     </div>
 
     <!-- TRADING -->
     <div class="sidebar-section">
       <div class="sidebar-section-label">Trading</div>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/trade-planner">
         <span class="nav-icon">📈</span> Trade Planner
       </a>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/risk">
         <span class="nav-icon">🛡️</span> Risk Manager
       </a>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/portfolio">
         <span class="nav-icon">💼</span> Portfolio
-      </a>
-      <a class="sidebar-nav-item" href="#">
-        <span class="nav-icon">📓</span> Trade Journal
       </a>
     </div>
 
     <!-- SYSTEM -->
     <div class="sidebar-section">
       <div class="sidebar-section-label">System</div>
-      <a class="sidebar-nav-item" href="#">
+      <a class="sidebar-nav-item" href="/ceo">
         <span class="nav-icon">🤖</span> AI Agents
       </a>
       <a class="sidebar-nav-item" href="#">
@@ -578,9 +564,11 @@
                     {{ '+' if w.change >= 0 else '' }}{{ "%.2f"|format(w.change) }}%
                   </td>
                   <td>
-                    <span style="font-weight:700;color:{% if w.ai_score >= 75 %}var(--accent-green){% elif w.ai_score >= 60 %}var(--accent-yellow){% else %}var(--accent-red){% endif %}">{{ w.ai_score }}</span>
+                    <span style="font-weight:700;color:{% if w.change_pct >= 1 %}var(--accent-green){% elif w.change_pct >= 0 %}var(--accent-yellow){% else %}var(--accent-red){% endif %}">
+                      {{ '+' if w.change_pct >= 0 else '' }}{{ "%.2f"|format(w.change_pct) }}%
+                    </span>
                   </td>
-                  <td><span class="wl-alert">{{ w.alert }}</span></td>
+                  <td><a href="/stock/{{ w.symbol }}" class="wl-alert" style="text-decoration:none">Research</a></td>
                 </tr>
                 {% endfor %}
               </tbody>

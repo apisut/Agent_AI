@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}Portfolio — TradePilot OS{% endblock %}
+
+{% block content %}
+<header class="top-header">
+  <div class="header-greeting">
+    <h3>💼 Portfolio</h3>
+    <p>{{ current_date }}</p>
+  </div>
+  <div class="header-right" style="margin-left:auto">
+    <button class="btn-sm btn-primary" onclick="document.getElementById('add-modal').style.display='flex'">+ Add Position</button>
+    <button class="btn-sm btn-outline" onclick="window.location.reload()">🔄 Refresh</button>
+  </div>
+</header>
+
+<div class="page-content">
+
+  <!-- SUMMARY CARDS -->
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+    <div class="summary-card blue">
+      <div class="summary-card-label">Total Value</div>
+      <div class="summary-card-value">${{ "%.2f"|format(portfolio.total_value) }}</div>
+    </div>
+    <div class="summary-card {{ 'green' if portfolio.total_pnl >= 0 else 'red' }}">
+      <div class="summary-card-label">Total P&L</div>
+      <div class="summary-card-value" style="color:{{ 'var(--accent-green)' if portfolio.total_pnl >= 0 else 'var(--accent-red)' }}">
+        {{ '+' if portfolio.total_pnl >= 0 else '' }}${{ "%.2f"|format(portfolio.total_pnl) }}
+      </div>
+      <div class="summary-card-sub">{{ '+' if portfolio.total_pnl_pct >= 0 else '' }}{{ "%.2f"|format(portfolio.total_pnl_pct) }}%</div>
+    </div>
+    <div class="summary-card purple">
+      <div class="summary-card-label">Positions</div>
+      <div class="summary-card-value">{{ portfolio.positions|length }}</div>
+    </div>
+    <div class="summary-card cyan">
+      <div class="summary-card-label">Cost Basis</div>
+      <div class="summary-card-value">${{ "%.2f"|format(portfolio.total_cost) }}</div>
+    </div>
+  </div>
+
+  <!-- POSITIONS TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📋 Open Positions</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="watchlist-table" style="width:100%">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Shares</th>
+            <th>Avg Cost</th>
+            <th>Current Price</th>
+            <th>Value</th>
+            <th>P&L</th>
+            <th>P&L %</th>
+            <th>Today</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in portfolio.positions %}
+          <tr>
+            <td>
+              <a href="/stock/{{ p.symbol }}" style="color:var(--text-primary);text-decoration:none">
+                <span class="wl-symbol">{{ p.symbol }}</span>
+              </a>
+            </td>
+            <td>{{ p.shares }}</td>
+            <td>${{ "%.2f"|format(p.avg_cost) }}</td>
+            <td style="font-weight:600">${{ "%.2f"|format(p.current_price) }}</td>
+            <td>${{ "%.2f"|format(p.value) }}</td>
+            <td style="font-weight:700;color:{{ 'var(--accent-green)' if p.pnl >= 0 else 'var(--accent-red)' }}">
+              {{ '+' if p.pnl >= 0 else '' }}${{ "%.2f"|format(p.pnl) }}
+            </td>
+            <td style="font-weight:700;color:{{ 'var(--accent-green)' if p.pnl_pct >= 0 else 'var(--accent-red)' }}">
+              {{ '+' if p.pnl_pct >= 0 else '' }}{{ "%.2f"|format(p.pnl_pct) }}%
+            </td>
+            <td class="{{ 'pick-change up' if p.change_pct >= 0 else 'pick-change down' }}">
+              {{ '+' if p.change_pct >= 0 else '' }}{{ "%.2f"|format(p.change_pct) }}%
+            </td>
+            <td>
+              <div style="display:flex;gap:5px">
+                <button class="btn-sm btn-outline" style="color:var(--accent-red);border-color:var(--accent-red)"
+                  onclick="closePosition({{ p.id }}, {{ p.current_price }})">Close</button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          {% if not portfolio.positions %}
+          <tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-muted)">ยังไม่มี Position ครับ กด "+ Add Position"</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div id="add-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:999;align-items:center;justify-content:center">
+  <div class="card" style="width:360px;padding:24px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:16px">
+      <h3 style="font-size:14px">เพิ่ม Position ใหม่</h3>
+      <button onclick="document.getElementById('add-modal').style.display='none'" style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px">✕</button>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <input id="pos-symbol" class="ceo-input" placeholder="Symbol เช่น NVDA" style="width:100%">
+      <input id="pos-shares" class="ceo-input" type="number" placeholder="จำนวนหุ้น" style="width:100%">
+      <input id="pos-cost" class="ceo-input" type="number" step="0.01" placeholder="ราคาที่ซื้อ (avg cost)" style="width:100%">
+      <input id="pos-notes" class="ceo-input" placeholder="หมายเหตุ (optional)" style="width:100%">
+      <button class="btn-sm btn-primary" style="width:100%;padding:10px" onclick="addPosition()">เพิ่ม Position</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function addPosition() {
+  const symbol = document.getElementById('pos-symbol').value.trim().toUpperCase();
+  const shares = parseFloat(document.getElementById('pos-shares').value);
+  const avg_cost = parseFloat(document.getElementById('pos-cost').value);
+  const notes = document.getElementById('pos-notes').value;
+  if (!symbol || !shares || !avg_cost) { alert('กรุณากรอกข้อมูลให้ครบ'); return; }
+  const resp = await fetch('/api/portfolio', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({symbol, shares, avg_cost, notes})
+  });
+  const data = await resp.json();
+  alert(data.message);
+  if (data.success) window.location.reload();
+}
+
+async function closePosition(id, price) {
+  const closePrice = parseFloat(prompt(`ราคาปิด Position (current: $${price}):`, price));
+  if (!closePrice || isNaN(closePrice)) return;
+  const resp = await fetch(`/api/portfolio/${id}?close_price=${closePrice}`, {method: 'DELETE'});
+  const data = await resp.json();
+  alert(`${data.message}`);
+  window.location.reload();
+}
+</script>
+{% endblock %}

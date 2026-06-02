@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}News Intelligence — TradePilot OS{% endblock %}
+
+{% block content %}
+<header class="top-header">
+  <div class="header-greeting">
+    <h3>📰 News Intelligence</h3>
+    <p>{{ current_date }}</p>
+  </div>
+  <div class="header-right" style="margin-left:auto">
+    <input id="news-search" class="header-search" type="text" placeholder="ค้นหาข่าว...">
+    <button class="btn-sm btn-outline" onclick="window.location.reload()">🔄 Refresh</button>
+  </div>
+</header>
+
+<div class="page-content">
+
+  <!-- FILTER -->
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="quick-btn active-filter" onclick="filterNews('all')">All</button>
+    <button class="quick-btn" onclick="filterNews('high')">🔴 High Impact</button>
+    <button class="quick-btn" onclick="filterNews('medium')">🟡 Medium</button>
+    <button class="quick-btn" onclick="filterNews('low')">⚪ Low</button>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 320px;gap:14px">
+
+    <!-- NEWS LIST -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">📋 Latest News Feed</div>
+        <span style="font-size:11px;color:var(--text-muted)">{{ news|length }} articles</span>
+      </div>
+      <div class="card-body" id="news-list">
+        {% for item in news %}
+        <div class="news-item news-row" data-impact="{{ item.impact }}" style="padding:12px 0">
+          <div class="news-meta">
+            <span class="news-time">{{ item.time }}</span>
+            <span class="news-impact {{ item.impact }}">{{ item.impact }}</span>
+            {% for ticker in item.related %}
+            <a href="/stock/{{ ticker }}" style="font-size:9px;color:var(--accent-cyan);text-decoration:none;background:rgba(6,182,212,0.1);padding:1px 5px;border-radius:4px">{{ ticker }}</a>
+            {% endfor %}
+          </div>
+          <div class="news-headline" style="font-size:13px;font-weight:600;margin:5px 0">{{ item.headline }}</div>
+          {% if item.description %}
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:5px;line-height:1.5">{{ item.description[:120] }}...</div>
+          {% endif %}
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-size:10px;color:var(--text-muted)">{{ item.source }}</span>
+            <div style="display:flex;gap:5px">
+              {% if item.url != '#' %}
+              <a href="{{ item.url }}" target="_blank" class="btn-sm btn-outline" style="text-decoration:none">อ่านต่อ →</a>
+              {% endif %}
+              <button class="btn-sm btn-primary" onclick="analyzeNews('{{ item.headline|replace("'", "") }}')">🤖 AI View</button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- SIDEBAR: AI SUMMARY -->
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🤖 AI News Summary</div></div>
+        <div class="card-body">
+          <div id="ai-summary" style="font-size:12px;color:var(--text-secondary);line-height:1.7;min-height:80px">
+            กดปุ่ม <strong style="color:var(--accent-cyan)">AI View</strong> ที่ข่าวไหน<br>Qwen จะวิเคราะห์ผลกระทบต่อตลาดให้ครับ
+          </div>
+          <div id="ai-loading" style="display:none;text-align:center;padding:20px">
+            <div style="font-size:24px;animation:pulse 1s infinite">🤖</div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:8px">Qwen กำลังวิเคราะห์...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><div class="card-title">📊 Impact Overview</div></div>
+        <div class="card-body">
+          {% set high_count = news | selectattr('impact', 'equalto', 'high') | list | length %}
+          {% set med_count = news | selectattr('impact', 'equalto', 'medium') | list | length %}
+          {% set low_count = news | selectattr('impact', 'equalto', 'low') | list | length %}
+          <div class="risk-metric-row">
+            <span class="rm-name">🔴 High Impact</span>
+            <span class="rm-value" style="color:var(--accent-red)">{{ high_count }}</span>
+          </div>
+          <div class="risk-metric-row">
+            <span class="rm-name">🟡 Medium</span>
+            <span class="rm-value" style="color:var(--accent-yellow)">{{ med_count }}</span>
+          </div>
+          <div class="risk-metric-row">
+            <span class="rm-name">⚪ Low</span>
+            <span class="rm-value" style="color:var(--text-muted)">{{ low_count }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function filterNews(impact) {
+  document.querySelectorAll('.active-filter').forEach(b => b.classList.remove('active-filter'));
+  event.target.classList.add('active-filter');
+  document.querySelectorAll('.news-row').forEach(row => {
+    row.style.display = (impact === 'all' || row.dataset.impact === impact) ? '' : 'none';
+  });
+}
+
+async function analyzeNews(headline) {
+  document.getElementById('ai-loading').style.display = 'block';
+  document.getElementById('ai-summary').style.display = 'none';
+  const resp = await fetch('/api/ceo/command', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({command: `วิเคราะห์ผลกระทบของข่าวนี้ต่อตลาดหุ้น: "${headline}"`, history: []})
+  });
+  const data = await resp.json();
+  document.getElementById('ai-loading').style.display = 'none';
+  document.getElementById('ai-summary').style.display = 'block';
+  document.getElementById('ai-summary').innerHTML = data.message.replace(/\n/g, '<br>');
+}
+
+document.getElementById('news-search').addEventListener('input', function() {
+  const q = this.value.toLowerCase();
+  document.querySelectorAll('.news-row').forEach(row => {
+    row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+});
+</script>
+{% endblock %}
