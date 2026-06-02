@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+{% block title %}Trade Planner — TradePilot OS{% endblock %}
+
+{% block content %}
+<header class="top-header">
+  <div class="header-greeting">
+    <h3>📈 Trade Planner</h3>
+    <p>{{ current_date }}</p>
+  </div>
+</header>
+
+<div class="page-content" style="display:grid;grid-template-columns:340px 1fr;gap:14px">
+
+  <!-- INPUT PANEL -->
+  <div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card">
+      <div class="card-header"><div class="card-title">📋 Plan Parameters</div></div>
+      <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+        <div>
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)">Symbol</label>
+          <input id="plan-symbol" class="ceo-input" placeholder="NVDA" style="width:100%;margin-top:4px" value="{{ request.query_params.get('symbol', '') if request else '' }}">
+        </div>
+        <div>
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)">Current Price ($)</label>
+          <input id="plan-price" class="ceo-input" type="number" step="0.01" style="width:100%;margin-top:4px" value="{{ request.query_params.get('price', '') if request else '' }}">
+        </div>
+        <div>
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)">Bias</label>
+          <select id="plan-bias" style="width:100%;margin-top:4px;background:var(--bg-secondary);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text-primary);font-size:12px">
+            <option value="bullish">📈 Bullish</option>
+            <option value="bearish">📉 Bearish</option>
+            <option value="neutral">🔄 Neutral</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)">Portfolio Size ($)</label>
+          <input id="plan-portfolio" class="ceo-input" type="number" placeholder="10000" style="width:100%;margin-top:4px">
+        </div>
+        <div>
+          <label style="font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)">Risk per Trade (%)</label>
+          <input id="plan-risk" class="ceo-input" type="number" placeholder="2" style="width:100%;margin-top:4px">
+        </div>
+        <button class="btn-sm btn-primary" style="width:100%;padding:12px;font-size:13px" onclick="buildPlan()">
+          🤖 Build Trade Plan with Qwen
+        </button>
+      </div>
+    </div>
+
+    <!-- QUICK SYMBOLS -->
+    <div class="card">
+      <div class="card-header"><div class="card-title">⭐ Quick Select</div></div>
+      <div class="card-body">
+        <div style="display:flex;flex-wrap:wrap;gap:5px">
+          {% for sym in ['NVDA','AMD','META','MSFT','AAPL','AMZN','GOOGL','TSLA','AVGO','SMCI'] %}
+          <button class="quick-btn" onclick="setSymbol('{{ sym }}')">{{ sym }}</button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT PANEL -->
+  <div class="card" style="display:flex;flex-direction:column">
+    <div class="card-header">
+      <div class="card-title">📊 AI Trade Plan</div>
+      <span id="plan-ticker-label" style="font-size:14px;font-weight:700;color:var(--accent-cyan)"></span>
+    </div>
+    <div class="card-body" style="flex:1">
+
+      <!-- EMPTY STATE -->
+      <div id="plan-empty" style="text-align:center;padding:60px 20px;color:var(--text-muted)">
+        <div style="font-size:50px;margin-bottom:16px">📈</div>
+        <div style="font-size:14px">กรอก Symbol และกด Build Trade Plan</div>
+        <div style="font-size:12px;margin-top:8px">Qwen จะสร้างแผนเทรดพร้อม Entry/SL/TP ให้ครับ</div>
+      </div>
+
+      <!-- LOADING -->
+      <div id="plan-loading" style="display:none;text-align:center;padding:60px 20px">
+        <div style="font-size:40px;animation:pulse 1s infinite">🤖</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:12px">Qwen กำลังสร้างแผนเทรด...</div>
+      </div>
+
+      <!-- RESULT -->
+      <div id="plan-result" style="display:none">
+        <div id="plan-content" style="font-size:13px;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap"></div>
+        <div style="margin-top:16px;display:flex;gap:8px">
+          <button class="btn-sm btn-primary" onclick="addToPortfolio()">💼 Add to Portfolio</button>
+          <button class="btn-sm btn-outline" onclick="addToWatchlist()">⭐ Add to Watchlist</button>
+          <button class="btn-sm btn-outline" onclick="shareWithCEO()">👑 Send to CEO</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Pre-fill from URL params
+const params = new URLSearchParams(window.location.search);
+if (params.get('symbol')) document.getElementById('plan-symbol').value = params.get('symbol');
+if (params.get('price')) document.getElementById('plan-price').value = params.get('price');
+
+let currentSymbol = '';
+let currentPrice = 0;
+
+function setSymbol(sym) {
+  document.getElementById('plan-symbol').value = sym;
+  // Auto-fetch price
+  fetch(`/api/quotes?symbols=${sym}`)
+    .then(r => r.json())
+    .then(data => {
+      if (data[0]) document.getElementById('plan-price').value = data[0].price;
+    });
+}
+
+async function buildPlan() {
+  const symbol = document.getElementById('plan-symbol').value.trim().toUpperCase();
+  const price = parseFloat(document.getElementById('plan-price').value);
+  const bias = document.getElementById('plan-bias').value;
+
+  if (!symbol || !price) { alert('กรุณากรอก Symbol และ Price ครับ'); return; }
+
+  currentSymbol = symbol;
+  currentPrice = price;
+
+  document.getElementById('plan-empty').style.display = 'none';
+  document.getElementById('plan-result').style.display = 'none';
+  document.getElementById('plan-loading').style.display = 'block';
+  document.getElementById('plan-ticker-label').textContent = symbol;
+
+  try {
+    const resp = await fetch('/api/trade-plan', {
+      method: 'POST', headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({symbol, price, bias})
+    });
+    const data = await resp.json();
+    document.getElementById('plan-loading').style.display = 'none';
+    document.getElementById('plan-result').style.display = 'block';
+    document.getElementById('plan-content').textContent = data.plan;
+  } catch(e) {
+    document.getElementById('plan-loading').style.display = 'none';
+    document.getElementById('plan-empty').style.display = 'block';
+    alert('เกิดข้อผิดพลาด กรุณาลองใหม่');
+  }
+}
+
+async function addToWatchlist() {
+  if (!currentSymbol) return;
+  const resp = await fetch('/api/watchlist', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({symbol: currentSymbol})
+  });
+  const data = await resp.json();
+  alert(data.message);
+}
+
+function addToPortfolio() {
+  if (!currentSymbol) return;
+  window.location.href = `/portfolio`;
+}
+
+async function shareWithCEO() {
+  const plan = document.getElementById('plan-content').textContent;
+  const resp = await fetch('/api/ceo/command', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({command: `รีวิว Trade Plan นี้ให้หน่อยครับ:\n${plan}`, history: []})
+  });
+  const data = await resp.json();
+  alert('ส่งให้ CEO แล้ว! ไปดูที่หน้า CEO Command ครับ');
+  window.location.href = '/ceo';
+}
+</script>
+{% endblock %}

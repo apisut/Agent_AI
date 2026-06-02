@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}Stock Scanner — TradePilot OS{% endblock %}
+
+{% block content %}
+<header class="top-header">
+  <div class="header-greeting">
+    <h3>🔍 Stock Scanner</h3>
+    <p>{{ current_date }}</p>
+  </div>
+  <div class="header-right" style="margin-left:auto">
+    <input id="scan-search" class="header-search" type="text" placeholder="เพิ่ม symbol เช่น TSLA, AMZN...">
+    <button class="btn-sm btn-primary" onclick="addScanSymbol()">+ Add</button>
+    <button class="btn-sm btn-outline" onclick="refreshScanner()">🔄 Refresh</button>
+  </div>
+</header>
+
+<div class="page-content">
+
+  <!-- FILTER BAR -->
+  <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+    <button class="quick-btn active-filter" onclick="filterStocks('all')">All ({{ stocks|length }})</button>
+    <button class="quick-btn" onclick="filterStocks('up')">📈 Gainers</button>
+    <button class="quick-btn" onclick="filterStocks('down')">📉 Losers</button>
+    <button class="quick-btn" onclick="filterStocks('ai')">🤖 AI Scan</button>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+      <span style="font-size:11px;color:var(--text-muted)">Sort by:</span>
+      <select id="sort-by" onchange="sortStocks()" style="background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:4px 8px;border-radius:6px;font-size:11px">
+        <option value="change_pct">% Change</option>
+        <option value="price">Price</option>
+        <option value="volume">Volume</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- SCANNER TABLE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">📊 Market Scan Results</div>
+      <span style="font-size:11px;color:var(--text-muted)">อัพเดท: <span id="scan-updated">Now</span></span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="watchlist-table" id="scanner-table" style="width:100%">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>% Change</th>
+            <th>Volume</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="scanner-tbody">
+          {% for s in stocks %}
+          <tr class="stock-row" data-symbol="{{ s.symbol }}"
+              data-change="{{ s.change_pct }}"
+              data-price="{{ s.price }}"
+              data-volume="{{ s.volume or 0 }}">
+            <td>
+              <a href="/stock/{{ s.symbol }}" style="color:var(--text-primary);text-decoration:none">
+                <span class="wl-symbol">{{ s.symbol }}</span>
+              </a>
+            </td>
+            <td style="font-weight:600">${{ "%.2f"|format(s.price) }}</td>
+            <td class="{{ 'pick-change up' if s.change >= 0 else 'pick-change down' }}">
+              {{ '+' if s.change >= 0 else '' }}{{ "%.2f"|format(s.change) }}
+            </td>
+            <td>
+              <span style="font-weight:700;color:{{ 'var(--accent-green)' if s.change_pct >= 0 else 'var(--accent-red)' }}">
+                {{ '+' if s.change_pct >= 0 else '' }}{{ "%.2f"|format(s.change_pct) }}%
+              </span>
+            </td>
+            <td style="color:var(--text-secondary)">
+              {{ "{:,}".format(s.volume) if s.volume else 'N/A' }}
+            </td>
+            <td>
+              <div style="display:flex;gap:5px">
+                <a href="/stock/{{ s.symbol }}" class="btn-sm btn-outline" style="text-decoration:none">Research</a>
+                <button class="btn-sm btn-outline" onclick="addToWatchlist('{{ s.symbol }}')">+ Watch</button>
+                <button class="btn-sm btn-primary" onclick="openTradePlan('{{ s.symbol }}', {{ s.price }})">Plan</button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function filterStocks(type) {
+  document.querySelectorAll('.active-filter').forEach(b => b.classList.remove('active-filter'));
+  event.target.classList.add('active-filter');
+  document.querySelectorAll('.stock-row').forEach(row => {
+    const chg = parseFloat(row.dataset.change);
+    if (type === 'all') row.style.display = '';
+    else if (type === 'up') row.style.display = chg >= 0 ? '' : 'none';
+    else if (type === 'down') row.style.display = chg < 0 ? '' : 'none';
+    else row.style.display = '';
+  });
+}
+
+function sortStocks() {
+  const key = document.getElementById('sort-by').value;
+  const tbody = document.getElementById('scanner-tbody');
+  const rows = Array.from(tbody.querySelectorAll('tr'));
+  rows.sort((a, b) => parseFloat(b.dataset[key.replace('_pct','').replace('change','change')] || b.dataset.change) -
+                       parseFloat(a.dataset[key.replace('_pct','').replace('change','change')] || a.dataset.change));
+  rows.forEach(r => tbody.appendChild(r));
+}
+
+function addScanSymbol() {
+  const sym = document.getElementById('scan-search').value.trim().toUpperCase();
+  if (!sym) return;
+  window.location.href = `/stock/${sym}`;
+}
+
+function addToWatchlist(symbol) {
+  fetch('/api/watchlist', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({symbol})
+  }).then(r => r.json()).then(d => alert(d.message));
+}
+
+function openTradePlan(symbol, price) {
+  window.location.href = `/trade-planner?symbol=${symbol}&price=${price}`;
+}
+
+function refreshScanner() {
+  window.location.reload();
+}
+
+document.getElementById('scan-search').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addScanSymbol();
+});
+</script>
+{% endblock %}

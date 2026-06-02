@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}TradePilot OS{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+  {% block head %}{% endblock %}
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🚀</div>
+      <h2>TradePilot OS</h2>
+      <p>AI Trading Command</p>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Main</div>
+      <a class="sidebar-nav-item {% if active == 'dashboard' %}active{% endif %}" href="/">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a class="sidebar-nav-item {% if active == 'ceo' %}active{% endif %}" href="/ceo">
+        <span class="nav-icon">👑</span> CEO Command
+      </a>
+      <a class="sidebar-nav-item {% if active == 'watchlist' %}active{% endif %}" href="/watchlist">
+        <span class="nav-icon">⭐</span> Watchlist
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Research</div>
+      <a class="sidebar-nav-item {% if active == 'scanner' %}active{% endif %}" href="/scanner">
+        <span class="nav-icon">🔍</span> Stock Scanner
+      </a>
+      <a class="sidebar-nav-item {% if active == 'news' %}active{% endif %}" href="/news">
+        <span class="nav-icon">📰</span> News Intelligence
+      </a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Trading</div>
+      <a class="sidebar-nav-item {% if active == 'trade-planner' %}active{% endif %}" href="/trade-planner">
+        <span class="nav-icon">📈</span> Trade Planner
+      </a>
+      <a class="sidebar-nav-item {% if active == 'risk' %}active{% endif %}" href="/risk">
+        <span class="nav-icon">🛡️</span> Risk Manager
+      </a>
+      <a class="sidebar-nav-item {% if active == 'portfolio' %}active{% endif %}" href="/portfolio">
+        <span class="nav-icon">💼</span> Portfolio
+      </a>
+    </div>
+
+    <div class="sidebar-user">
+      <div class="user-avatar">🧑‍💼</div>
+      <div class="user-info">
+        <h4>Commander</h4>
+        <p>TradePilot OS</p>
+      </div>
+    </div>
+    <div class="sidebar-status">
+      <div class="status-dot"></div>
+      <span id="sb-market-status">Market Active</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    {% block content %}{% endblock %}
+    <footer class="page-footer">
+      <span>© 2024 TradePilot OS</span>
+      <div class="footer-right">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--accent-green);animation:pulse 2s infinite;display:inline-block"></span>
+        Live · <span id="live-clock">--:--:--</span>
+      </div>
+    </footer>
+  </div>
+
+</div>
+<script src="/static/js/main.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

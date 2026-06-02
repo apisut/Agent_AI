@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Watchlist — TradePilot OS{% endblock %}
+
+{% block content %}
+<header class="top-header">
+  <div class="header-greeting">
+    <h3>⭐ Watchlist</h3>
+    <p>{{ current_date }}</p>
+  </div>
+  <div class="header-right" style="margin-left:auto;display:flex;gap:8px">
+    <input id="add-symbol" class="header-search" type="text" placeholder="เพิ่ม symbol เช่น TSLA">
+    <button class="btn-sm btn-primary" onclick="addSymbol()">+ Add</button>
+    <button class="btn-sm btn-outline" onclick="window.location.reload()">🔄 Refresh</button>
+  </div>
+</header>
+
+<div class="page-content">
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⭐ Watchlist ({{ watchlist|length }} symbols)</div>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="watchlist-table" style="width:100%">
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>% Change</th>
+            <th>Volume</th>
+            <th>Added</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for w in watchlist %}
+          <tr>
+            <td>
+              <a href="/stock/{{ w.symbol }}" style="color:var(--text-primary);text-decoration:none">
+                <span class="wl-symbol">{{ w.symbol }}</span>
+              </a>
+            </td>
+            <td style="font-weight:600">${{ "%.2f"|format(w.price) }}</td>
+            <td class="{{ 'pick-change up' if w.change >= 0 else 'pick-change down' }}">
+              {{ '+' if w.change >= 0 else '' }}{{ "%.2f"|format(w.change) }}
+            </td>
+            <td>
+              <span style="font-weight:700;color:{{ 'var(--accent-green)' if w.change_pct >= 0 else 'var(--accent-red)' }}">
+                {{ '+' if w.change_pct >= 0 else '' }}{{ "%.2f"|format(w.change_pct) }}%
+              </span>
+            </td>
+            <td style="color:var(--text-secondary)">{{ "{:,}".format(w.volume) if w.volume else 'N/A' }}</td>
+            <td style="color:var(--text-muted)">{{ w.added_at }}</td>
+            <td style="color:var(--text-secondary);font-size:11px">{{ w.notes or '—' }}</td>
+            <td>
+              <div style="display:flex;gap:5px">
+                <a href="/stock/{{ w.symbol }}" class="btn-sm btn-outline" style="text-decoration:none">Research</a>
+                <button class="btn-sm btn-primary" onclick="openTradePlan('{{ w.symbol }}', {{ w.price }})">Plan</button>
+                <button class="btn-sm btn-outline" style="color:var(--accent-red);border-color:var(--accent-red)"
+                  onclick="removeSymbol('{{ w.symbol }}')">✕</button>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+          {% if not watchlist %}
+          <tr><td colspan="8" style="text-align:center;padding:40px;color:var(--text-muted)">ยังไม่มีหุ้นใน Watchlist ครับ</td></tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function addSymbol() {
+  const sym = document.getElementById('add-symbol').value.trim().toUpperCase();
+  if (!sym) return;
+  const resp = await fetch('/api/watchlist', {
+    method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({symbol: sym})
+  });
+  const data = await resp.json();
+  alert(data.message);
+  if (data.success) window.location.reload();
+}
+
+async function removeSymbol(symbol) {
+  if (!confirm(`ลบ ${symbol} ออกจาก Watchlist?`)) return;
+  const resp = await fetch(`/api/watchlist/${symbol}`, {method: 'DELETE'});
+  const data = await resp.json();
+  if (data.success) window.location.reload();
+}
+
+function openTradePlan(symbol, price) {
+  window.location.href = `/trade-planner?symbol=${symbol}&price=${price}`;
+}
+
+document.getElementById('add-symbol').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addSymbol();
+});
+</script>
+{% endblock %}
