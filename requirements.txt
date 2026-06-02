@@ -31,10 +31,12 @@ sentry-sdk
 schedule
 celery
 
-# Web Framework (optional for API)
+# Web Framework
 fastapi
-uvicorn
+uvicorn[standard]
 starlette
+jinja2
+python-multipart
 
 # Development & Testing
 pytest>=7.0

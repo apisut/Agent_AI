@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TradePilot OS — AI Trading Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="app-layout">
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">🚀</div>
+      <h2>TradePilot OS</h2>
+      <p>AI Trading Command</p>
+    </div>
+
+    <!-- MAIN -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Main</div>
+      <a class="sidebar-nav-item active" href="#">
+        <span class="nav-icon">📊</span> Dashboard
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">👑</span> CEO Command
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">🌏</span> Market Pulse
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">⭐</span> Watchlist
+        <span class="nav-badge">5</span>
+      </a>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Research</div>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">🔍</span> Stock Scanner
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">📰</span> News Intelligence
+        <span class="nav-badge">3</span>
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">🔬</span> Research Desk
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">📋</span> SEC & Earnings
+      </a>
+    </div>
+
+    <!-- TRADING -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">Trading</div>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">📈</span> Trade Planner
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">🛡️</span> Risk Manager
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">💼</span> Portfolio
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">📓</span> Trade Journal
+      </a>
+    </div>
+
+    <!-- SYSTEM -->
+    <div class="sidebar-section">
+      <div class="sidebar-section-label">System</div>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">🤖</span> AI Agents
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">⚡</span> Automation
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">📚</span> Strategy Library
+      </a>
+      <a class="sidebar-nav-item" href="#">
+        <span class="nav-icon">⚙️</span> Settings
+      </a>
+    </div>
+
+    <!-- USER -->
+    <div class="sidebar-user">
+      <div class="user-avatar">🧑‍💼</div>
+      <div class="user-info">
+        <h4>{{ user_name }}</h4>
+        <p>Commander</p>
+      </div>
+    </div>
+
+    <div class="sidebar-status">
+      <div class="status-dot"></div>
+      Market: Open
+    </div>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <div class="main-content">
+
+    <!-- TOP HEADER -->
+    <header class="top-header">
+      <div class="header-greeting">
+        <h3>Good morning, {{ user_name }}.</h3>
+        <p>{{ current_date }}</p>
+      </div>
+
+      <div class="header-markets">
+        <div style="display:flex;align-items:center;gap:6px;margin-right:10px">
+          <span class="market-status-badge">{{ market.market_status }}</span>
+        </div>
+
+        <div class="market-ticker">
+          <span class="ticker-name">Market Closes</span>
+          <span class="ticker-value" id="market-countdown" style="color:#f59e0b">{{ market.market_closes }}</span>
+        </div>
+
+        <div class="market-ticker">
+          <span class="ticker-name">S&P 500</span>
+          <span class="ticker-value">{{ "%.2f"|format(market.sp500.value) }}</span>
+          <span class="ticker-change up">+{{ market.sp500.change }}%</span>
+        </div>
+
+        <div class="market-ticker">
+          <span class="ticker-name">NASDAQ</span>
+          <span class="ticker-value">{{ "%.2f"|format(market.nasdaq.value) }}</span>
+          <span class="ticker-change up">+{{ market.nasdaq.change }}%</span>
+        </div>
+
+        <div class="market-ticker">
+          <span class="ticker-name">DOW</span>
+          <span class="ticker-value">{{ "%.2f"|format(market.dow.value) }}</span>
+          <span class="ticker-change up">+{{ market.dow.change }}%</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <input class="header-search" type="text" placeholder="Search assets, news, agents...">
+        <div class="header-icon-btn">
+          🔔
+          <span class="notif-badge">3</span>
+        </div>
+        <div class="header-icon-btn">⚙️</div>
+        <div class="header-icon-btn">❓</div>
+        <div class="header-user">
+          <div class="user-avatar-sm">🧑‍💼</div>
+          <div>
+            <div class="user-label">Xaugod</div>
+            <div class="user-role">Commander</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+      <!-- ===== SUMMARY CARDS ===== -->
+      <div class="summary-cards">
+
+        <!-- Card 1: Portfolio Value -->
+        <div class="summary-card blue">
+          <div class="summary-card-header">
+            <div class="summary-card-icon blue">💼</div>
+            <span class="summary-card-badge badge-green">+{{ portfolio.change_pct }}%</span>
+          </div>
+          <div class="summary-card-label">Portfolio Value</div>
+          <div class="summary-card-value">${{ "%.0f"|format(portfolio.value) }}</div>
+          <div class="summary-card-sub">Day P&L +${{ "%.0f"|format(portfolio.day_pnl) }}</div>
+        </div>
+
+        <!-- Card 2: Total Return -->
+        <div class="summary-card green">
+          <div class="summary-card-header">
+            <div class="summary-card-icon green">📈</div>
+            <span class="summary-card-badge badge-green">+{{ portfolio.return_pct }}%</span>
+          </div>
+          <div class="summary-card-label">Total Return (YTD)</div>
+          <div class="summary-card-value" style="color:var(--accent-green)">+${{ "%.0f"|format(portfolio.total_return) }}</div>
+          <div class="summary-card-sub">vs S&P 500 +6.21%</div>
+        </div>
+
+        <!-- Card 3: Buying Power -->
+        <div class="summary-card cyan">
+          <div class="summary-card-header">
+            <div class="summary-card-icon cyan">💰</div>
+            <span class="summary-card-badge badge-blue">{{ portfolio.buying_power_pct }}% avail</span>
+          </div>
+          <div class="summary-card-label">Buying Power</div>
+          <div class="summary-card-value">${{ "%.0f"|format(portfolio.buying_power) }}</div>
+          <div class="summary-card-sub">Available for trading</div>
+        </div>
+
+        <!-- Card 4: Active Positions -->
+        <div class="summary-card purple">
+          <div class="summary-card-header">
+            <div class="summary-card-icon purple">🎯</div>
+            <span class="summary-card-badge badge-green">W/L {{ portfolio.winners }}/{{ portfolio.losers }}</span>
+          </div>
+          <div class="summary-card-label">Active Positions</div>
+          <div class="summary-card-value">{{ portfolio.active_positions }}</div>
+          <div class="summary-card-sub">{{ portfolio.winners }} winners · {{ portfolio.losers }} losers</div>
+        </div>
+
+        <!-- Card 5: Win Rate -->
+        <div class="summary-card yellow">
+          <div class="summary-card-header">
+            <div class="summary-card-icon yellow">🏆</div>
+            <span class="summary-card-badge badge-blue">Last 30 days</span>
+          </div>
+          <div class="summary-card-label">Win Rate (AI Picks)</div>
+          <div class="summary-card-value" style="color:var(--accent-yellow)">{{ portfolio.win_rate }}%</div>
+          <div class="summary-card-sub">Avg return +8.3%</div>
+        </div>
+
+        <!-- Card 6: Risk Score -->
+        <div class="summary-card {% if portfolio.risk_score < 35 %}green{% elif portfolio.risk_score < 65 %}yellow{% else %}red{% endif %}">
+          <div class="summary-card-header">
+            <div class="summary-card-icon green">🛡️</div>
+            <span class="summary-card-badge badge-green">{{ portfolio.risk_label }}</span>
+          </div>
+          <div class="summary-card-label">Risk Score</div>
+          <div class="summary-card-value" style="color:var(--accent-green)">{{ portfolio.risk_score }} / 100</div>
+          <div class="summary-card-sub">Portfolio protected</div>
+        </div>
+
+      </div>
+      <!-- END SUMMARY CARDS -->
+
+      <!-- ===== MAIN GRID ===== -->
+      <div class="main-grid">
+
+        <!-- CEO COMMAND -->
+        <div class="ceo-command">
+          <div class="ceo-avatar-area">
+            <div class="ceo-avatar-bg"></div>
+            <div class="ceo-avatar-emoji">🤖</div>
+            <div class="ceo-speech-bubble">
+              <strong>Hi Commander, I'm your AI co-pilot.</strong>
+              How can I assist your trading mission today?
+            </div>
+          </div>
+          <div class="ceo-command-body">
+            <div class="ceo-quick-btns">
+              <button class="quick-btn" onclick="setQuickCmd('สแกนตลาดวันนี้')">🔍 Scan Market</button>
+              <button class="quick-btn" onclick="setQuickCmd('หาหุ้นเด่น AI Sector')">⭐ Top Stocks</button>
+              <button class="quick-btn" onclick="setQuickCmd('สร้างแผนเทรด NVDA')">📈 Trade Plan</button>
+              <button class="quick-btn" onclick="setQuickCmd('ตรวจสอบความเสี่ยงพอร์ต')">🛡️ Check Risk</button>
+              <button class="quick-btn" onclick="setQuickCmd('วิเคราะห์พอร์ตลงทุน')">💼 Portfolio</button>
+              <button class="quick-btn" onclick="setQuickCmd('สรุปข่าวสำคัญวันนี้')">📰 News Brief</button>
+              <button class="quick-btn" onclick="setQuickCmd('รันงานประจำวัน')">⚡ Daily Run</button>
+              <button class="quick-btn" onclick="setQuickCmd('Market brief สั้นๆ')">📋 Market Brief</button>
+            </div>
+            <div class="ceo-input-row">
+              <input id="ceo-input" class="ceo-input" type="text"
+                placeholder='เช่น "สแกนหุ้น AI Momentum สูง แล้ววาง Entry/TP/SL"'>
+              <button class="ceo-send-btn" onclick="sendCeoCommand()">➤</button>
+            </div>
+            <div id="ceo-response" class="ceo-response"></div>
+          </div>
+        </div>
+
+        <!-- TODAY ACTION -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📋 Today Action</div>
+              <div class="card-subtitle">แผนการเทรดวันนี้</div>
+            </div>
+            <a class="card-link" href="#">View All →</a>
+          </div>
+          <div class="card-body">
+            <div class="today-brief">
+              วันนี้ตลาดเอนเอียง <strong>Bullish</strong> กลุ่ม <strong>AI & Semiconductor</strong> ยังแข็งแกร่ง
+              หุ้นเด่นคือ <strong>NVDA / AMD / MSFT</strong> — แนะนำรอ <strong>เข้าใกล้โซนรับ</strong>
+              ไม่ไล่ราคา ระวัง Fed speech คืนนี้
+            </div>
+
+            <div class="today-meta-grid">
+              <div class="today-meta-item">
+                <div class="label">Market Bias</div>
+                <div class="value" style="color:var(--accent-green)">📈 Bullish</div>
+              </div>
+              <div class="today-meta-item">
+                <div class="label">Focus Sector</div>
+                <div class="value">AI / Semicon</div>
+              </div>
+              <div class="today-meta-item">
+                <div class="label">Main Risk</div>
+                <div class="value" style="color:var(--accent-yellow)">Fed Speech</div>
+              </div>
+              <div class="today-meta-item">
+                <div class="label">AI Confidence</div>
+                <div class="value" style="color:var(--accent-cyan)">82%</div>
+              </div>
+            </div>
+
+            <div class="action-tasks">
+              <div class="action-task">
+                <div class="task-dot done"></div>
+                <div class="task-info">
+                  <div class="task-name">Review overnight AI scan results</div>
+                  <div class="task-desc">พบ 7 สัญญาณคุณภาพสูง</div>
+                </div>
+                <div class="task-time">08:00 AM</div>
+              </div>
+              <div class="action-task">
+                <div class="task-dot done"></div>
+                <div class="task-info">
+                  <div class="task-name">Check economic calendar</div>
+                  <div class="task-desc">Core PCE Price Index (2:30 PM)</div>
+                </div>
+                <div class="task-time">08:30 AM</div>
+              </div>
+              <div class="action-task">
+                <div class="task-dot"></div>
+                <div class="task-info">
+                  <div class="task-name">Review open positions</div>
+                  <div class="task-desc">ปรับ Stop Loss 3 ตำแหน่ง</div>
+                </div>
+                <div class="task-time">09:00 AM</div>
+              </div>
+              <div class="action-task">
+                <div class="task-dot warn"></div>
+                <div class="task-info">
+                  <div class="task-name">AI strategy sync</div>
+                  <div class="task-desc">อัปเดตโมเดลใหม่ประจำสัปดาห์</div>
+                </div>
+                <div class="task-time">09:30 AM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOP AI PICKS -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🎯 Top AI Picks</div>
+              <div class="card-subtitle">หุ้นเด่นที่ AI แนะนำ</div>
+            </div>
+            <a class="card-link" href="#">View All →</a>
+          </div>
+          <div class="card-body">
+            {% for pick in top_picks %}
+            <div class="pick-item">
+              <div class="pick-logo">{{ pick.symbol[:2] }}</div>
+              <div class="pick-info">
+                <div class="pick-symbol">{{ pick.symbol }}</div>
+                <div class="pick-company">{{ pick.company }}</div>
+              </div>
+              <div style="text-align:center;margin:0 10px">
+                <span class="action-badge {% if pick.action == 'STRONG BUY' %}strong-buy{% elif pick.action == 'BUY' %}buy{% else %}hold{% endif %}">
+                  {{ pick.action }}
+                </span>
+              </div>
+              <div class="pick-price-block">
+                <div class="pick-price">${{ "%.2f"|format(pick.price) }}</div>
+                <div class="pick-change up">+{{ pick.change }}%</div>
+              </div>
+              <div class="confidence-bar">
+                <svg width="36" height="36" viewBox="0 0 36 36">
+                  <circle class="bar-bg" cx="18" cy="18" r="16"/>
+                  <circle class="bar-fill ring-fill"
+                    cx="18" cy="18" r="16"
+                    stroke="{% if pick.confidence >= 85 %}#10b981{% elif pick.confidence >= 70 %}#3b82f6{% else %}#f59e0b{% endif %}"
+                    data-pct="{{ pick.confidence }}"
+                    style="stroke-dasharray:100.53;stroke-dashoffset:{{ 100.53 - (pick.confidence/100*100.53) }}"/>
+                </svg>
+                <div class="bar-text" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700">{{ pick.confidence }}%</div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+      </div>
+      <!-- END MAIN GRID -->
+
+      <!-- ===== AGENT STATUS ROW ===== -->
+      <div class="agent-row">
+        {% for agent in agents %}
+        <div class="agent-card">
+          <div class="agent-emoji">{{ agent.emoji }}</div>
+          <div class="agent-name">{{ agent.name }}</div>
+          <div class="agent-role">{{ agent.role }}</div>
+          <div class="agent-status-dot">ACTIVE</div>
+          <div class="agent-task">{{ agent.task }}</div>
+          <div class="agent-progress-bar">
+            <div class="agent-progress-fill" data-progress="{{ agent.progress }}" style="width:0%"></div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- ===== LOWER GRID ===== -->
+      <div class="lower-grid">
+
+        <!-- TRADE SETUP SNAPSHOT -->
+        <div class="card" style="overflow:hidden">
+          <div class="trade-setup-header">
+            <div>
+              <div class="trade-ticker">NVDA</div>
+              <div class="trade-bias" style="color:var(--accent-green)">📈 Bullish Setup</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-size:12px;font-weight:700">Confidence</div>
+              <div style="font-size:20px;font-weight:800;color:var(--accent-cyan)">92%</div>
+            </div>
+          </div>
+          <div class="trade-levels">
+            <div class="trade-level entry">
+              <div class="level-label">Entry Zone</div>
+              <div class="level-value">$1,005 – $1,020</div>
+            </div>
+            <div class="trade-level stop">
+              <div class="level-label">Stop Loss</div>
+              <div class="level-value">$960.00</div>
+            </div>
+            <div class="trade-level target">
+              <div class="level-label">TP1</div>
+              <div class="level-value">$1,080.00</div>
+            </div>
+            <div class="trade-level rr">
+              <div class="level-label">Risk/Reward</div>
+              <div class="level-value">1 : 2.15</div>
+            </div>
+          </div>
+          <div class="trade-setup-footer">
+            <button class="btn-sm btn-primary">📋 Full Plan</button>
+            <button class="btn-sm btn-outline">📤 Send to Team</button>
+            <button class="btn-sm btn-outline">🔔 Set Alert</button>
+          </div>
+        </div>
+
+        <!-- MARKET PULSE -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🌏 Market Pulse</div>
+              <div class="card-subtitle">ภาพรวมตลาด</div>
+            </div>
+            <span style="font-size:11px;color:var(--accent-green);font-weight:600">65% Bullish</span>
+          </div>
+          <div class="card-body">
+            <div class="market-metric">
+              <span class="metric-name">Market Breadth</span>
+              <span class="metric-value" style="color:var(--accent-green)">73% Advancing</span>
+            </div>
+            <div class="market-metric">
+              <span class="metric-name">Volatility (VIX)</span>
+              <span class="metric-value">15.21</span>
+              <span class="metric-change" style="color:var(--accent-green)">-2.31%</span>
+            </div>
+            <div class="market-metric">
+              <span class="metric-name">Momentum</span>
+              <span class="metric-value">72</span>
+              <span style="font-size:10px;color:var(--accent-green)">Strong</span>
+            </div>
+            <div class="market-metric">
+              <span class="metric-name">Put/Call Ratio</span>
+              <span class="metric-value">0.68</span>
+              <span style="font-size:10px;color:var(--text-muted)">Neutral</span>
+            </div>
+            <div class="market-metric">
+              <span class="metric-name">Top Sector</span>
+              <span class="metric-value" style="color:var(--accent-cyan)">Technology</span>
+            </div>
+            <div class="market-metric">
+              <span class="metric-name">Fear & Greed</span>
+              <span class="metric-value" style="color:var(--accent-green)">Greed (68)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- NEWS SUMMARY -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📰 News Summary</div>
+              <div class="card-subtitle">ข่าวสำคัญวันนี้</div>
+            </div>
+            <a class="card-link" href="#">View All →</a>
+          </div>
+          <div class="card-body">
+            {% for item in news %}
+            <div class="news-item">
+              <div class="news-meta">
+                <span class="news-time">{{ item.time }}</span>
+                <span class="news-impact {{ item.impact }}">{{ item.impact }}</span>
+                <span style="font-size:9px;color:var(--text-muted)">{{ item.related | join(', ') }}</span>
+              </div>
+              <div class="news-headline">{{ item.headline }}</div>
+              <div class="news-ai-view">🤖 {{ item.ai_view }}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- RISK OVERVIEW -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">🛡️ Risk Overview</div>
+              <div class="card-subtitle">สถานะความเสี่ยง</div>
+            </div>
+            <a class="card-link" href="#">Full Report →</a>
+          </div>
+          <div class="card-body">
+            <div class="risk-gauge">
+              <div class="risk-score-circle">
+                <div class="risk-score-value">{{ portfolio.risk_score }}</div>
+              </div>
+              <div class="risk-label">{{ portfolio.risk_label }}</div>
+            </div>
+            <div class="risk-metrics">
+              <div class="risk-metric-row">
+                <span class="rm-name">Max Drawdown</span>
+                <span class="rm-value" style="color:var(--accent-red)">-8.2%</span>
+              </div>
+              <div class="risk-metric-row">
+                <span class="rm-name">Portfolio Beta</span>
+                <span class="rm-value">0.72</span>
+              </div>
+              <div class="risk-metric-row">
+                <span class="rm-name">VaR (95%)</span>
+                <span class="rm-value" style="color:var(--accent-yellow)">-1.28%</span>
+              </div>
+              <div class="risk-metric-row">
+                <span class="rm-name">Risk/Reward</span>
+                <span class="rm-value" style="color:var(--accent-green)">2.31</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- END LOWER GRID -->
+
+      <!-- ===== BOTTOM GRID ===== -->
+      <div class="bottom-grid">
+
+        <!-- WATCHLIST -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">⭐ Watchlist</div>
+              <div class="card-subtitle">หุ้นที่เฝ้าดู</div>
+            </div>
+            <a class="card-link" href="#">View All →</a>
+          </div>
+          <div class="card-body" style="padding:10px 14px">
+            <table class="watchlist-table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Price</th>
+                  <th>Chg%</th>
+                  <th>AI Score</th>
+                  <th>Alert</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for w in watchlist %}
+                <tr>
+                  <td class="wl-symbol">{{ w.symbol }}</td>
+                  <td>${{ "%.2f"|format(w.price) }}</td>
+                  <td class="{% if w.change >= 0 %}pick-change up{% else %}pick-change down{% endif %}">
+                    {{ '+' if w.change >= 0 else '' }}{{ "%.2f"|format(w.change) }}%
+                  </td>
+                  <td>
+                    <span style="font-weight:700;color:{% if w.ai_score >= 75 %}var(--accent-green){% elif w.ai_score >= 60 %}var(--accent-yellow){% else %}var(--accent-red){% endif %}">{{ w.ai_score }}</span>
+                  </td>
+                  <td><span class="wl-alert">{{ w.alert }}</span></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TRADE SETUP SNAPSHOT (Donut) -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">📊 Trade Setup Snapshot</div>
+              <div class="card-subtitle">สรุป Setups วันนี้</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div style="display:flex;align-items:center;gap:20px">
+              <canvas id="setup-donut" width="110" height="110" style="flex-shrink:0"></canvas>
+              <div class="setup-legend" style="flex:1">
+                <div class="setup-legend-item">
+                  <div style="display:flex;align-items:center">
+                    <div class="setup-legend-dot" style="background:var(--accent-green)"></div>
+                    Strong Buy
+                  </div>
+                  <div style="font-weight:700;color:var(--accent-green)">12 (37.5%)</div>
+                </div>
+                <div class="setup-legend-item">
+                  <div style="display:flex;align-items:center">
+                    <div class="setup-legend-dot" style="background:var(--accent-blue)"></div>
+                    Buy
+                  </div>
+                  <div style="font-weight:700;color:var(--accent-blue)">11 (34.4%)</div>
+                </div>
+                <div class="setup-legend-item">
+                  <div style="display:flex;align-items:center">
+                    <div class="setup-legend-dot" style="background:var(--accent-yellow)"></div>
+                    Hold
+                  </div>
+                  <div style="font-weight:700;color:var(--accent-yellow)">6 (18.8%)</div>
+                </div>
+                <div class="setup-legend-item">
+                  <div style="display:flex;align-items:center">
+                    <div class="setup-legend-dot" style="background:var(--accent-red)"></div>
+                    Avoid
+                  </div>
+                  <div style="font-weight:700;color:var(--accent-red)">3 (9.3%)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AUTOMATION CONSOLE -->
+        <div class="card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">⚡ Automation Status</div>
+              <div class="card-subtitle">ระบบรันงานอัตโนมัติ</div>
+            </div>
+            <span style="font-size:11px;color:var(--accent-green);font-weight:600;display:flex;align-items:center;gap:5px">
+              <span style="width:6px;height:6px;border-radius:50%;background:var(--accent-green);animation:pulse 2s infinite;display:inline-block"></span>
+              All Systems Active
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="auto-item">
+              <div class="auto-dot active"></div>
+              <span class="auto-name">AI Market Scanning</span>
+              <span class="auto-status active">Live 24/7</span>
+            </div>
+            <div class="auto-item">
+              <div class="auto-dot active"></div>
+              <span class="auto-name">Signal Generation</span>
+              <span class="auto-status active">High Quality</span>
+            </div>
+            <div class="auto-item">
+              <div class="auto-dot armed"></div>
+              <span class="auto-name">Trade Execution</span>
+              <span class="auto-status armed">Armed</span>
+            </div>
+            <div class="auto-item">
+              <div class="auto-dot active"></div>
+              <span class="auto-name">Risk Monitoring</span>
+              <span class="auto-status active">Realtime</span>
+            </div>
+            <div class="auto-item">
+              <div class="auto-dot scheduled"></div>
+              <span class="auto-name">Portfolio Rebalance</span>
+              <span class="auto-status scheduled">Next: 05/25</span>
+            </div>
+            <div class="auto-item">
+              <div class="auto-dot active"></div>
+              <span class="auto-name">Performance Tracking</span>
+              <span class="auto-status active">Active</span>
+            </div>
+            <div style="margin-top:10px;display:flex;gap:6px">
+              <button class="btn-sm btn-primary">▶ Run Now</button>
+              <button class="btn-sm btn-outline">⏸ Pause</button>
+              <button class="btn-sm btn-outline">📅 Schedule</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- END BOTTOM GRID -->
+
+    </div>
+    <!-- END PAGE CONTENT -->
+
+    <!-- FOOTER -->
+    <footer class="page-footer">
+      <span>© 2024 TradePilot OS · All systems operational</span>
+      <div class="footer-right">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--accent-green);animation:pulse 2s infinite;display:inline-block"></span>
+        <span>Live · Updated <span id="live-clock">--:--:--</span></span>
+      </div>
+    </footer>
+
+  </div>
+  <!-- END MAIN CONTENT -->
+
+</div>
+<!-- END APP LAYOUT -->
+
+<script src="/static/js/main.js"></script>
+</body>
+</html>
