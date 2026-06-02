@@ -109,7 +109,7 @@ async def scanner_page():
 
 @app.get("/news", response_class=HTMLResponse)
 async def news_page():
-    news = await run_sync(news_service.get_market_news, news_service.FINANCE_KEYWORDS, 20)
+    news = await run_sync(news_service.get_market_news, "", 20)
     return render("news.html", news=news, current_date=_today())
 
 
@@ -181,7 +181,7 @@ async def api_stock(symbol: str):
 
 
 @app.get("/api/news")
-async def api_news(q: str = news_service.FINANCE_KEYWORDS):
+async def api_news(q: str = ""):
     return await run_sync(news_service.get_market_news, q, 10)
 
 
