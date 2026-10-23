@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ร้านค้า — สวนสุข</title>
+  <meta name="description" content="สินค้าทั้งหมดจากสวนสุข">
+  <meta name="theme-color" content="#1d3d30">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="shop">
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+  <div id="site-header"></div>
+  <main id="main" class="page">
+    <noscript><p class="notice">เปิดใช้ JavaScript เพื่อดูสินค้า</p></noscript>
+    <header class="page-head">
+      <p class="eyebrow">ร้านค้า</p>
+      <h1>สินค้าทั้งหมด</h1>
+      <p class="lede" id="shop-count" aria-live="polite"></p>
+    </header>
+    <div class="toolbar">
+      <div class="chips" id="chips" role="toolbar" aria-label="หมวดสินค้า"></div>
+      <label class="sort">เรียงตาม
+        <select id="sort" aria-label="เรียงสินค้า">
+          <option value="featured">แนะนำ</option>
+          <option value="price-asc">ราคาต่ำไปสูง</option>
+          <option value="price-desc">ราคาสูงไปต่ำ</option>
+          <option value="name">ชื่อ ก-ฮ</option>
+        </select>
+      </label>
+    </div>
+    <div id="grid" class="grid"></div>
+  </main>
+  <div id="site-footer"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/catalog.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

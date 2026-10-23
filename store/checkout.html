@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ชำระเงิน — สวนสุข</title>
+  <meta name="description" content="ยืนยันคำสั่งซื้อจากสวนสุข">
+  <meta name="theme-color" content="#1d3d30">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="checkout">
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+  <div id="site-header"></div>
+  <main id="main" class="page">
+    <header class="page-head">
+      <p class="eyebrow">สั่งซื้อ</p>
+      <h1>ที่อยู่และการชำระเงิน</h1>
+    </header>
+    <div id="checkout-empty" hidden></div>
+    <div id="checkout-layout" class="checkout-layout">
+      <form id="checkout-form" method="post" action="order.html" novalidate>
+        <div class="form-grid two">
+          <label class="field" data-field="name">
+            <span>ชื่อผู้รับ</span>
+            <input name="name" autocomplete="name" required placeholder="เช่น สมชาย ใจดี">
+            <small class="field-error"></small>
+          </label>
+          <label class="field" data-field="phone">
+            <span>เบอร์โทร</span>
+            <input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="08x-xxx-xxxx" spellcheck="false">
+            <small class="field-error"></small>
+          </label>
+          <label class="field wide" data-field="address">
+            <span>ที่อยู่</span>
+            <textarea name="address" rows="3" autocomplete="street-address" required placeholder="บ้านเลขที่ ถนน แขวงหรือตำบล อำเภอ รหัสไปรษณีย์"></textarea>
+            <small class="field-error"></small>
+          </label>
+          <label class="field" data-field="province">
+            <span>จังหวัด</span>
+            <input name="province" list="provinces" autocomplete="address-level1" required placeholder="เช่น เชียงใหม่">
+            <datalist id="provinces"></datalist>
+            <small class="field-error"></small>
+          </label>
+          <label class="field" data-field="note">
+            <span>หมายเหตุถึงร้าน (ไม่จำเป็น)</span>
+            <input name="note" maxlength="300" placeholder="เช่น ฝากไว้ที่นิติบุคคล">
+            <small class="field-error"></small>
+          </label>
+        </div>
+
+        <fieldset class="pay-set" data-field="payment">
+          <legend>วิธีชำระเงิน</legend>
+          <label class="pay-option"><input type="radio" name="payment" value="cod"> <span>เก็บเงินปลายทาง</span></label>
+          <label class="pay-option"><input type="radio" name="payment" value="promptpay"> <span>พร้อมเพย์</span></label>
+          <label class="pay-option"><input type="radio" name="payment" value="card"> <span>บัตรเดบิตหรือเครดิต</span></label>
+          <small class="field-error"></small>
+        </fieldset>
+
+        <div id="promptpay-box" class="extra-box" hidden>
+          <strong>ตัวอย่างพร้อมเพย์</strong>
+          <div class="qr-demo" role="img" aria-label="ภาพคิวอาร์ตัวอย่าง สแกนไม่ได้"></div>
+          <p>นี่คือภาพตัวอย่าง สแกนไม่ได้ และไม่มีการรับเงินจริง</p>
+        </div>
+
+        <div id="card-box" class="extra-box" hidden>
+          <p>ระบบตัวอย่างไม่ตัดเงินและไม่เก็บบัตร ใส่เลขบัตรเพียงเพื่อตรวจรูปแบบ</p>
+          <div class="form-grid">
+            <label class="field" data-field="cardName">
+              <span>ชื่อบนบัตร</span>
+              <input name="cardName" autocomplete="cc-name" placeholder="SOMCHAI JAIDEE">
+              <small class="field-error"></small>
+            </label>
+            <label class="field" data-field="cardNumber">
+              <span>เลขบัตร</span>
+              <input name="cardNumber" inputmode="numeric" autocomplete="cc-number" placeholder="4242 4242 4242 4242" maxlength="19" spellcheck="false">
+              <small class="field-error"></small>
+            </label>
+            <label class="field" data-field="cardExpiry">
+              <span>หมดอายุ</span>
+              <input name="cardExpiry" autocomplete="cc-exp" placeholder="ดด/ปป" maxlength="7" spellcheck="false">
+              <small class="field-error"></small>
+            </label>
+          </div>
+        </div>
+
+        <p class="notice">ร้านนี้เป็นตัวอย่าง คำสั่งซื้อจะถูกบันทึกในเบราว์เซอร์เครื่องนี้เท่านั้น และไม่มีการตัดเงิน</p>
+        <button class="btn btn-block" type="submit">ยืนยันคำสั่งซื้อ</button>
+      </form>
+      <aside class="summary" id="summary"></aside>
+    </div>
+  </main>
+  <div id="site-footer"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/catalog.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/validate.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

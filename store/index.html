@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>สวนสุข — ของกินและของใช้จากชุมชน</title>
+  <meta name="description" content="สวนสุข ร้านของกินและของใช้จากชุมชนทั่วไทย ส่งถึงบ้าน">
+  <meta name="theme-color" content="#1d3d30">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Noto+Serif+Thai:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="home">
+  <a class="skip" href="#main">ข้ามไปเนื้อหา</a>
+  <div id="site-header"></div>
+  <main id="main" class="page">
+    <noscript><p class="notice">เปิดใช้ JavaScript เพื่อดูราคา หยิบสินค้า และสั่งซื้อ</p></noscript>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">ร้านของกินและของใช้จากชุมชน</p>
+        <h1>ของดีจากสวน<br><em>ส่งถึงบ้านคุณ</em></h1>
+        <p class="lede">สวนสุขคัดข้าว ของปรุง และงานฝีมือจากผู้ผลิตตัวเล็กทั่วไทย แพ็กดี ส่งตรง ไม่ผ่านชั้นวางยาว ๆ</p>
+        <div class="hero-actions">
+          <a class="btn" href="shop.html">เลือกซื้อสินค้า</a>
+          <a class="btn btn-ghost" href="#story">เรื่องของร้าน</a>
+        </div>
+        <ul class="trust">
+          <li>คัดจากผู้ผลิตตัวเล็ก</li>
+          <li>แพ็กกันกระแทก</li>
+          <li>เก็บเงินปลายทางได้</li>
+        </ul>
+      </div>
+      <div class="hero-stage">
+        <a class="hero-card tone-sand tall" href="product.html?id=jasmine-rice">
+          <span class="icon-host" data-icon="rice"></span>
+          <span class="hero-card-caption"><strong>ข้าวหอมมะลิอินทรีย์</strong><em data-price-for="jasmine-rice"></em></span>
+        </a>
+        <a class="hero-card tone-clay" href="product.html?id=nam-prik">
+          <span class="icon-host" data-icon="jar"></span>
+          <span class="hero-card-caption"><strong>น้ำพริกตาแดง</strong><em data-price-for="nam-prik"></em></span>
+        </a>
+        <a class="hero-card tone-bloom" href="product.html?id=butterfly-tea">
+          <span class="icon-host" data-icon="tea"></span>
+          <span class="hero-card-caption"><strong>ชาอัญชัน</strong><em data-price-for="butterfly-tea"></em></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="cat-title">
+      <div class="section-head">
+        <h2 id="cat-title">เลือกตามหมวด</h2>
+      </div>
+      <div class="cat-grid">
+        <a class="cat-tile tone-sand" href="shop.html?cat=pantry">
+          <span class="icon-host" data-icon="jar"></span>
+          <span><strong>ของกิน</strong><small>ข้าว เครื่องปรุง ของว่าง</small></span>
+        </a>
+        <a class="cat-tile tone-bloom" href="shop.html?cat=drink">
+          <span class="icon-host" data-icon="tea"></span>
+          <span><strong>เครื่องดื่ม</strong><small>ชา กาแฟ น้ำผึ้ง</small></span>
+        </a>
+        <a class="cat-tile tone-leaf" href="shop.html?cat=home">
+          <span class="icon-host" data-icon="bowl"></span>
+          <span><strong>ของใช้</strong><small>ผ้า ทอ เซรามิก</small></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="featured-title">
+      <div class="section-head">
+        <h2 id="featured-title">ของที่คนสั่งบ่อย</h2>
+        <a href="shop.html">ดูทั้งหมด</a>
+      </div>
+      <div id="featured" class="grid"></div>
+    </section>
+
+    <section class="section story" id="story">
+      <div>
+        <p class="eyebrow">เรื่องของร้าน</p>
+        <h2>ซื้อจากคนทำ ไม่ใช่จากโกดังใหญ่</h2>
+        <p class="lede">เราคุยกับชาวนา ช่างปั้น และคนทำขนมโดยตรง แล้วส่งของชุดเล็กถึงบ้านคุณในราคาที่คนทำยังอยู่ได้</p>
+      </div>
+      <div class="story-grid">
+        <article class="fact"><strong id="product-count">12</strong><span>รายการที่คัดไว้ตอนนี้</span></article>
+        <article class="fact"><strong>800 บาท</strong><span>ยอดที่ส่งฟรี</span></article>
+        <article class="fact"><strong>จันทร์–เสาร์</strong><span>วันที่มีรถออก</span></article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="fresh-title">
+      <div class="section-head">
+        <h2 id="fresh-title">เพิ่งเข้ามาในร้าน</h2>
+        <a href="shop.html">ดูทั้งหมด</a>
+      </div>
+      <div id="fresh" class="grid"></div>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <script src="js/catalog.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>
